@@ -1,0 +1,4 @@
+export const ENTITY_EXCEPTION_CODE = {
+  VALIDATION: 1422,
+  NOT_FOUND: 1404,
+};

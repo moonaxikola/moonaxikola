@@ -1,0 +1,86 @@
+version: '3.9'
+
+services:
+  # DATABASE
+  postgres:
+    image: postgres:13
+    container_name: moona-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - moona-backend
+
+  # REDIS
+  redis:
+    image: redis:alpine
+    container_name: moona-redis
+    restart: always
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis:/data
+    networks:
+      - moona-backend
+
+  # REDIS COMMANDER
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: moona_redis_commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - ${REDIS_COMMANDER_PORT}:8081
+    depends_on:
+      - redis
+    networks:
+      - moona-backend
+
+  # MAILHOG
+  mailhog:
+    image: mailhog/mailhog
+    container_name: moona-mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - ${SMTP_PORT}:1025
+      - ${SMTP_DASHBOARD_PORT}:8025
+    networks:
+      - moona-backend
+
+  # MINIO
+  minio:
+    image: quay.io/minio/minio
+    container_name: moona-minio
+    command: server /data --console-address ":9090"
+    restart: always
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - ${MINIO_PORT}:9000
+      - ${MINIO_CONSOLE_PORT}:9090
+    volumes:
+      - minio:/data
+    networks:
+      - moona-backend
+
+networks:
+  moona-backend:
+    driver: bridge
+
+volumes:
+  postgres:
+    name: moona-database
+  redis:
+    name: moona-redis
+  minio:
+    name: moona-minio
