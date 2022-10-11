@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'common-application',
+  displayName: 'common-use-cases',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/common/application',
+  coverageDirectory: '../../../coverage/libs/common/use-cases',
 };

@@ -1,21 +1,21 @@
 {
-  "name": "common-application",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/common/application/src",
+  "name": "common-use-cases",
+  "sourceRoot": "libs/common/use-cases/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/common/application/**/*.ts"]
+        "lintFilePatterns": ["libs/common/use-cases/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common/application"],
+      "outputs": ["coverage/libs/common/use-cases"],
       "options": {
-        "jestConfig": "libs/common/application/jest.config.ts",
+        "jestConfig": "libs/common/use-cases/jest.config.ts",
         "passWithNoTests": true
       }
     }
