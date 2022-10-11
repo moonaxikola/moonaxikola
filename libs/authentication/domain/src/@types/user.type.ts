@@ -1,11 +1,8 @@
-export type InstanciateUserPayload = {
+export type UserProps = {
   id: string;
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  emailVerifiedAt?: Date;
 };
 
-export type CreateUserPayload = Omit<InstanciateUserPayload, 'id' | 'updatedAt' | 'createdAt'>;
+export type UserFactoryPayload = UserProps;

@@ -1,108 +1,66 @@
-import { v4 as uuid, validate as validateUuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { EntityValidationException } from '@moona-backend/common/domain';
-import { InstanciateUserPayload, CreateUserPayload } from '../../@types';
+import * as bcrypt from 'bcrypt';
+import { UserFactoryPayload } from '../../@types';
 import { User } from '../user.entity';
 
+const passwordHash = bcrypt.hashSync('123456', 10);
+
 describe('User', () => {
-  describe('instanciate', () => {
+  describe('factory', () => {
     it('should instanciate a user with valid payload', async () => {
       const currentDate = new Date();
 
-      const payload: InstanciateUserPayload = {
+      const payload: UserFactoryPayload = {
         id: uuid(),
         email: 'john.doe@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
         password: '123456',
-        createdAt: currentDate,
-        updatedAt: currentDate,
+        emailVerifiedAt: currentDate,
       };
 
-      const user = await User.instanciate(payload);
+      const user = await User.factory(payload);
 
       expect(user.id).toBe(payload.id);
       expect(user.email).toBe(payload.email);
-      expect(user.firstName).toBe(payload.firstName);
-      expect(user.lastName).toBe(payload.lastName);
-      expect(user.createdAt).toBe(currentDate);
-      expect(user.updatedAt).toBe(currentDate);
-      expect(user.fullName).toBe('John Doe');
+      expect(user.isEmailVerified()).toBe(true);
     });
 
     it('should throw an entity validation error with invalid payload', () => {
-      const payload: InstanciateUserPayload = { id: uuid() } as InstanciateUserPayload;
+      const payload: UserFactoryPayload = { id: uuid() } as UserFactoryPayload;
 
-      expect(User.instanciate(payload)).rejects.toThrowError(EntityValidationException);
-    });
-  });
-
-  describe('create', () => {
-    it('should create a user with valid payload', async () => {
-      const payload: CreateUserPayload = {
-        email: 'john.doe@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        password: '123456',
-      };
-
-      const user = await User.create(payload);
-
-      expect(validateUuid(user.id)).toBe(true);
-      expect(user.createdAt).toBeInstanceOf(Date);
-      expect(user.updatedAt).toBeInstanceOf(Date);
-      expect(user.email).toBe(payload.email);
-      expect(user.firstName).toBe(payload.firstName);
-      expect(user.lastName).toBe(payload.lastName);
-      expect(user.fullName).toBe('John Doe');
+      expect(User.factory(payload)).rejects.toThrowError(EntityValidationException);
     });
   });
 
   describe('comparePassword', () => {
     it('should return true if the password is correct', async () => {
-      const payload: CreateUserPayload = {
+      const currentDate = new Date();
+
+      const payload: UserFactoryPayload = {
+        id: uuid(),
         email: 'john.doe@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        password: '123456',
+        password: passwordHash,
+        emailVerifiedAt: currentDate,
       };
 
-      const user = await User.create(payload);
+      const user = await User.factory(payload);
 
       await expect(user.comparePassword('123456')).resolves.toBe(true);
     });
 
     it('should return false if the password is incorrect', async () => {
-      const payload: CreateUserPayload = {
+      const currentDate = new Date();
+
+      const payload: UserFactoryPayload = {
+        id: uuid(),
         email: 'john.doe@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        password: '123456',
+        password: passwordHash,
+        emailVerifiedAt: currentDate,
       };
 
-      const user = await User.create(payload);
+      const user = await User.factory(payload);
 
       await expect(user.comparePassword('secret')).resolves.toBe(false);
-    });
-  });
-
-  describe('changePassword', () => {
-    it('should change the password', async () => {
-      const payload: CreateUserPayload = {
-        email: 'john.doe@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        password: '123456',
-      };
-
-      const user = await User.create(payload);
-
-      expect(user.comparePassword('123456')).resolves.toBe(true);
-      expect(user.comparePassword('secret')).resolves.toBe(false);
-
-      await user.changePassword('secret');
-
-      expect(user.comparePassword('123456')).resolves.toBe(false);
-      expect(user.comparePassword('secret')).resolves.toBe(true);
     });
   });
 });
