@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { IsString, IsEmail, IsDate, IsOptional } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity, Optional } from '@moona-backend/common/domain';
-import { UserFactoryPayload, CreateUserPayload } from '../@types';
+import { UserFactoryPayload, CreateUserPayload, UserProps } from '../@types';
 
 export class User extends BaseEntity<string> {
   @IsString()
@@ -94,5 +94,17 @@ export class User extends BaseEntity<string> {
     await user.hashPassword();
 
     return user;
+  }
+
+  public toProps(): UserProps {
+    return {
+      id: this._id,
+      firstName: this._firstName,
+      lastName: this._lastName,
+      email: this._email,
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
+      isEmailVerified: this.isEmailVerified(),
+    };
   }
 }
