@@ -1,8 +1,15 @@
-import { UserRepositoryMock, UserMailerMock } from '@moona-backend/user-account/domain';
+import {
+  UserRepositoryMock,
+  UserMailerMock,
+  UserAlreadyExistsException,
+} from '@moona-backend/user-account/domain';
 import { SignUpUseCasePayload } from '../sign-up.interfaces';
 import { SignUpUseCase } from '../sign-up.use-case';
 
 describe('Sign Up use case', () => {
+  const userRepository = new UserRepositoryMock();
+  const userMailer = new UserMailerMock();
+
   it('should create a new user with valid payload', async () => {
     const payload: SignUpUseCasePayload = {
       email: 'john.doe@example.com',
@@ -11,7 +18,7 @@ describe('Sign Up use case', () => {
       password: '123456',
     };
 
-    const useCase = new SignUpUseCase(new UserRepositoryMock(), new UserMailerMock());
+    const useCase = new SignUpUseCase(userRepository, userMailer);
 
     const user = await useCase.execute(payload);
 
@@ -23,5 +30,20 @@ describe('Sign Up use case', () => {
     expect(user.isEmailVerified).toBe(false);
     expect(user.createdAt).toBeDefined();
     expect(user.updatedAt).toBeDefined();
+  });
+
+  it('should throw "Entity Already Exists" error if email is already taken', async () => {
+    const payload: SignUpUseCasePayload = {
+      email: 'john.doe@example.com',
+      firstName: 'John',
+      lastName: 'Doe',
+      password: '123456',
+    };
+
+    jest.spyOn(userRepository, 'countByEmail').mockResolvedValue(1);
+
+    const useCase = new SignUpUseCase(userRepository, userMailer);
+
+    await expect(useCase.execute(payload)).rejects.toThrow(UserAlreadyExistsException);
   });
 });
