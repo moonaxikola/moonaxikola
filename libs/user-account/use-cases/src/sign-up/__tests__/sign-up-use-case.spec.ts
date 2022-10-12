@@ -17,6 +17,7 @@ describe('Sign Up use case', () => {
       firstName: 'John',
       lastName: 'Doe',
       password: '123456',
+      username: 'john.doe',
     };
 
     const useCase = new SignUpUseCase(userRepository, userMailer);
@@ -28,7 +29,7 @@ describe('Sign Up use case', () => {
     expect(user.email).toEqual(payload.email);
     expect(user.firstName).toEqual(payload.firstName);
     expect(user.lastName).toEqual(payload.lastName);
-    expect(user.isEmailVerified).toBe(false);
+    expect(user.emailVerifiedAt).toBeUndefined();
     expect(user.createdAt).toBeDefined();
     expect(user.updatedAt).toBeDefined();
   });
@@ -44,6 +45,7 @@ describe('Sign Up use case', () => {
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',
+        username: 'john.doe',
       });
     } catch (e) {
       expect(e).toBeInstanceOf(UserAlreadyExistsException);

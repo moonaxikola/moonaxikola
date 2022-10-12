@@ -17,6 +17,9 @@ export class User extends BaseEntity<string> {
   @IsString()
   private _password: string;
 
+  @IsString()
+  private _username: string;
+
   @IsDate()
   @IsOptional()
   private _emailVerifiedAt?: Date;
@@ -34,6 +37,8 @@ export class User extends BaseEntity<string> {
     this._firstName = payload.firstName;
     this._lastName = payload.lastName;
     this._email = payload.email;
+    this._emailVerifiedAt = payload.emailVerifiedAt;
+    this._username = payload.username;
     this._password = payload.password;
     this._createdAt = payload.createdAt;
     this._updatedAt = payload.updatedAt;
@@ -42,6 +47,10 @@ export class User extends BaseEntity<string> {
   private async hashPassword(): Promise<void> {
     this._password = await bcrypt.hash(this._password, 10);
     await this.validate();
+  }
+
+  public get username(): string {
+    return this._username;
   }
 
   public get fullName(): string {
@@ -58,6 +67,14 @@ export class User extends BaseEntity<string> {
 
   public get email(): string {
     return this._email;
+  }
+
+  public get password(): string {
+    return this._password;
+  }
+
+  public get emailVerifiedAt(): Optional<Date> {
+    return this._emailVerifiedAt;
   }
 
   public get createdAt(): Date {
@@ -104,7 +121,8 @@ export class User extends BaseEntity<string> {
       email: this._email,
       createdAt: this._createdAt,
       updatedAt: this._updatedAt,
-      isEmailVerified: this.isEmailVerified(),
+      username: this._username,
+      emailVerifiedAt: this._emailVerifiedAt,
     };
   }
 }

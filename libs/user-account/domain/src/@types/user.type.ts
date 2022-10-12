@@ -5,14 +5,17 @@ export type UserProps = {
   email: string;
   createdAt: Date;
   updatedAt: Date;
-  isEmailVerified: boolean;
+  username: string;
+  emailVerifiedAt?: Date;
 };
 
-export interface UserFactoryPayload extends Omit<UserProps, 'isEmailVerified'> {
+export interface UserFactoryPayload extends UserProps {
   password: string;
 }
 
 export type CreateUserPayload = Omit<
-  UserFactoryPayload,
-  'id' | 'updatedAt' | 'createdAt' | 'isEmailVerified'
->;
+  UserProps,
+  'id' | 'updatedAt' | 'createdAt' | 'isEmailVerified' | 'emailVerifiedAt'
+> & {
+  password: string;
+};

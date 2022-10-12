@@ -14,6 +14,7 @@ describe('User', () => {
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',
+        username: 'john.doe',
         createdAt: currentDate,
         updatedAt: currentDate,
       };
@@ -40,6 +41,7 @@ describe('User', () => {
     it('should create a user with valid payload', async () => {
       const payload: CreateUserPayload = {
         email: 'john.doe@example.com',
+        username: 'john.doe',
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',
@@ -61,6 +63,7 @@ describe('User', () => {
     it('should return true if the password is correct', async () => {
       const payload: CreateUserPayload = {
         email: 'john.doe@example.com',
+        username: 'john.doe',
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',
@@ -74,6 +77,7 @@ describe('User', () => {
     it('should return false if the password is incorrect', async () => {
       const payload: CreateUserPayload = {
         email: 'john.doe@example.com',
+        username: 'john.doe',
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',
@@ -89,6 +93,7 @@ describe('User', () => {
     it('should change the password', async () => {
       const payload: CreateUserPayload = {
         email: 'john.doe@example.com',
+        username: 'john.doe',
         firstName: 'John',
         lastName: 'Doe',
         password: '123456',

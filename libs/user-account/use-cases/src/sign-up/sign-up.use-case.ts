@@ -21,7 +21,7 @@ export class SignUpUseCase implements ISignUpUseCase {
 
     const user = await User.create(payload);
 
-    await this.userRepository.save(user);
+    await this.userRepository.create(user);
 
     await this.userMailer.sendVerificationEmail(user);
     await this.userMailer.sendWelcomeEmail(user);
