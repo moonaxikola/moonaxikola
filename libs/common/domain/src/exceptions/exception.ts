@@ -3,6 +3,8 @@ import { Optional, CreateExceptionPayload, CodeDescription } from '../@types';
 export class Exception<Data> extends Error {
   public readonly code: number;
 
+  public readonly httpStatusCode: number = 500;
+
   public readonly data: Optional<Data>;
 
   public static new<Data>(payload: CreateExceptionPayload<Data>) {
@@ -14,6 +16,7 @@ export class Exception<Data> extends Error {
 
     this.name = this.constructor.name;
     this.code = codeDescription.code;
+    this.httpStatusCode = codeDescription.httpStatusCode;
     this.data = data;
     this.message = overrideMessage || codeDescription.message;
 

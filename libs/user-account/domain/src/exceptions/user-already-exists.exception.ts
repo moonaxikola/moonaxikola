@@ -1,10 +1,7 @@
-import { ENTITY_EXCEPTION_CODE, Exception } from '@moona-backend/common/domain';
+import { EntityAlreadyExistsException } from '@moona-backend/common/domain';
 
-export class UserAlreadyExistsException extends Exception<void> {
-  constructor() {
-    super({
-      code: ENTITY_EXCEPTION_CODE.ALREADY_EXISTS,
-      message: 'User already exists',
-    });
+export class UserAlreadyExistsException extends EntityAlreadyExistsException {
+  constructor(field: string, value: string) {
+    super('User', field, value);
   }
 }

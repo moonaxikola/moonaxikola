@@ -17,7 +17,7 @@ export class SignUpUseCase implements ISignUpUseCase {
   async execute(payload: CreateUserPayload): Promise<UserProps> {
     const doesUserExist = await this.userRepository.countByEmail(payload.email);
 
-    if (doesUserExist) throw new UserAlreadyExistsException();
+    if (doesUserExist !== 0) throw new UserAlreadyExistsException('email', payload.email);
 
     const user = await User.create(payload);
 

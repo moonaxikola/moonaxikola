@@ -1,8 +1,11 @@
 import { SignUpUseCase } from '@moona-backend/user-account/use-cases';
-import { Module, Provider } from '@nestjs/common';
+import { Module, Provider, Type } from '@nestjs/common';
 
 import { UserRepository } from './repositories';
 import { UserMailer } from './mailer';
+import { UserAccountController } from './controllers';
+
+const controllers: Type[] = [UserAccountController];
 
 const repositories: Provider[] = [UserRepository];
 
@@ -17,6 +20,7 @@ const useCases: Provider[] = [
 ];
 
 @Module({
+  controllers,
   providers: [...repositories, ...mailers, ...useCases],
 })
 export class UserAccountModule {}

@@ -1,5 +1,6 @@
 export type CodeDescription = {
   code: number;
+  httpStatusCode?: number;
   message: string;
 };
 
