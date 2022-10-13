@@ -7,7 +7,7 @@ import { PrismaService } from 'nestjs-prisma';
 export class PrismaTransactionWrapper {
   constructor(private readonly prisma: PrismaService) {}
 
-  wrap<I, O>(
+  wrapUseCase<I, O>(
     useCaseFactory: (prisma: Prisma.TransactionClient) => TransactionalUseCase<I, O>,
   ): UseCase<I, O> {
     return {

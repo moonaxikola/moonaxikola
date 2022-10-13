@@ -22,6 +22,12 @@ export class UserRepository extends PrismaRepository implements UserRepositoryPo
     });
   }
 
+  async countByUsername(username: string): Promise<number> {
+    return this.prisma.user.count({
+      where: { username },
+    });
+  }
+
   async create(user: User): Promise<void> {
     await this.prisma.user.create({
       data: UserMapper.toOrm(user),
