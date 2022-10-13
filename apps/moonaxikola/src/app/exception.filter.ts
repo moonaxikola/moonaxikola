@@ -1,25 +1,52 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import { Exception } from '@moona-backend/common/domain';
+import { prismaHttpStatusMapping } from '@moona-backend/common/infrastructure';
+import { Prisma } from '@prisma/client';
+
+type IException = Exception<unknown> | HttpException | Prisma.PrismaClientKnownRequestError;
 
 @Catch()
 export class CustomExceptionFilter implements ExceptionFilter {
-  catch(exception: Exception<unknown> | HttpException, host: ArgumentsHost) {
+  catch(exception: IException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const isHttpException = exception instanceof HttpException;
-    const status = isHttpException ? exception.getStatus() : exception.httpStatusCode;
-    const code = isHttpException ? status : exception.code;
 
-    const getMessage = () => {
-      if (isHttpException) {
-        const exceptionResponse = exception.getResponse();
-        return typeof exceptionResponse === 'string' ? exceptionResponse : exceptionResponse['message'];
-      }
+    response.status(this.getStatusCode(exception)).json(this.getResponseBody(exception));
+  }
 
-      return exception.message;
+  private getResponseBody(exception: IException): { code: string; message: string } {
+    if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+      return {
+        code: exception.code,
+        message: exception.message,
+      };
+    }
+
+    if (exception instanceof Exception) {
+      return {
+        code: exception.code,
+        message: exception.message,
+      };
+    }
+
+    const exceptionResponse = exception.getResponse();
+
+    return {
+      code: `I${exception.getStatus()}`,
+      message: typeof exceptionResponse === 'string' ? exceptionResponse : exceptionResponse['message'],
     };
+  }
 
-    response.status(status).json({ code, message: getMessage() });
+  getStatusCode(exception: IException) {
+    if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+      return prismaHttpStatusMapping[exception.code] || HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    if (exception instanceof Exception) {
+      return exception.httpStatusCode;
+    }
+
+    return exception.getStatus();
   }
 }

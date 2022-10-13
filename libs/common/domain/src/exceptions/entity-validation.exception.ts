@@ -5,6 +5,7 @@ export class EntityValidationException<Data> extends Exception<Data> {
   constructor(entityName: string, data?: Data) {
     super(
       {
+        httpStatusCode: 400,
         code: ENTITY_EXCEPTION_CODE.VALIDATION,
         message: `${entityName}: validation failed`,
       },

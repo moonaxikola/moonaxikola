@@ -1,7 +1,7 @@
 import { Optional, CreateExceptionPayload, CodeDescription } from '../@types';
 
 export class Exception<Data> extends Error {
-  public readonly code: number;
+  public readonly code: string;
 
   public readonly httpStatusCode: number = 500;
 

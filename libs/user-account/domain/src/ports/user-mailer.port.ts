@@ -1,6 +1,5 @@
-import { User } from '../entities';
-
+import { UserProps } from '../@types';
 export interface UserMailerPort {
-  sendWelcomeEmail(user: User): Promise<void>;
-  sendVerificationEmail(user: User): Promise<void>;
+  sendWelcomeEmail(user: UserProps): Promise<void>;
+  sendVerificationEmail(user: UserProps): Promise<void>;
 }

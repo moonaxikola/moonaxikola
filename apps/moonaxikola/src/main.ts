@@ -1,5 +1,6 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { PrismaService } from 'nestjs-prisma';
 
 import { AppModule } from './app/app.module';
 import { CustomExceptionFilter } from './app/exception.filter';
@@ -9,6 +10,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new CustomExceptionFilter());
+  app.get(PrismaService).enableShutdownHooks(app);
 
   const port = process.env.PORT || 3333;
   await app.listen(port);
