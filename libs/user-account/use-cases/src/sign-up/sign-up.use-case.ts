@@ -1,18 +1,16 @@
+import { EventEmitter } from '@moona-backend/common/domain';
 import {
   CreateUserPayload,
   UserProps,
   UserRepositoryPort,
-  UserMailerPort,
   UserAlreadyExistsException,
   User,
+  UserCreatedEvent,
 } from '@moona-backend/user-account/domain';
 import { ISignUpUseCase } from './sign-up.interfaces';
 
 export class SignUpUseCase implements ISignUpUseCase {
-  constructor(
-    private readonly userRepository: UserRepositoryPort,
-    private readonly userMailer: UserMailerPort,
-  ) {}
+  constructor(private readonly userRepository: UserRepositoryPort, private readonly event: EventEmitter) {}
 
   async execute(payload: CreateUserPayload): Promise<UserProps> {
     const doesEmailExist = await this.userRepository.countByEmail(payload.email);
@@ -25,8 +23,7 @@ export class SignUpUseCase implements ISignUpUseCase {
 
     await this.userRepository.create(user);
 
-    await this.userMailer.sendVerificationEmail(user);
-    await this.userMailer.sendWelcomeEmail(user);
+    this.event.dispatch(new UserCreatedEvent(user.toProps()));
 
     return user.toProps();
   }
