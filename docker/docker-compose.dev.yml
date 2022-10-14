@@ -89,7 +89,7 @@ services:
       - moona-backend
 
   novu-api:
-    image: 'ghcr.io/novuhq/novu/api:0.8.0'
+    image: 'ghcr.io/novuhq/novu/api:latest'
     container_name: moona-novu-api
     restart: unless-stopped
     environment:
@@ -121,7 +121,7 @@ services:
       - moona-backend
 
   novu-ws:
-    image: 'ghcr.io/novuhq/novu/ws:0.8.0'
+    image: 'ghcr.io/novuhq/novu/ws:latest'
     container_name: moona-novu-ws
     restart: unless-stopped
     environment:
@@ -140,7 +140,7 @@ services:
       - moona-backend
 
   novu-web:
-    image: 'ghcr.io/novuhq/novu/web:0.8.0'
+    image: 'ghcr.io/novuhq/novu/web:latest'
     container_name: moona-novu-web
     environment:
       REACT_APP_API_URL: ${NOVU_API_ROOT_URL}
@@ -155,7 +155,7 @@ services:
       - moona-backend
 
   novu-widget:
-    image: 'ghcr.io/novuhq/novu/widget:0.8.0'
+    image: 'ghcr.io/novuhq/novu/widget:latest'
     depends_on:
       - novu-api
       - novu-web
@@ -170,7 +170,7 @@ services:
       - moona-backend
 
   novu-embed:
-    image: 'ghcr.io/novuhq/novu/embed:0.8.0'
+    image: 'ghcr.io/novuhq/novu/embed:latest'
     depends_on:
       - novu-widget
     container_name: embed
