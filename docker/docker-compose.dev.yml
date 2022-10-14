@@ -73,6 +73,114 @@ services:
     networks:
       - moona-backend
 
+  # NOVU
+  novu-db:
+    image: mongo
+    container_name: moona-mongodb
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - ${NOVU_DB_PORT}:27017
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - moona-backend
+
+  novu-api:
+    image: 'ghcr.io/novuhq/novu/api:0.8.0'
+    container_name: moona-novu-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      API_ROOT_URL: ${NOVU_API_ROOT_URL}
+      DISABLE_USER_REGISTRATION: ${NOVU_DISABLE_USER_REGISTRATION}
+      PORT: ${NOVU_API_PORT}
+      FRONT_BASE_URL: ${NOVU_FRONT_BASE_URL}
+      MONGO_URL: ${NOVU_MONGO_URL}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_DB_INDEX: ${NOVU_REDIS_DB_INDEX}
+      S3_LOCAL_STACK: ${S3_LOCAL_STACK}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      S3_REGION: ${S3_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      JWT_SECRET: ${ACCESS_TOKEN_SECRET}
+      STORE_ENCRYPTION_KEY: ${STORE_ENCRYPTION_KEY}
+      SENTRY_DSN: ${SENTRY_DSN}
+      NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}
+      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+    ports:
+      - ${NOVU_API_PORT}:3000
+    depends_on:
+      - novu-db
+      - redis
+    networks:
+      - moona-backend
+
+  novu-ws:
+    image: 'ghcr.io/novuhq/novu/ws:0.8.0'
+    container_name: moona-novu-ws
+    restart: unless-stopped
+    environment:
+      PORT: ${NOVU_WS_PORT}
+      NODE_ENV: ${NODE_ENV}
+      MONGO_URL: ${NOVU_MONGO_URL}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      JWT_SECRET: ${ACCESS_TOKEN_SECRET}
+    ports:
+      - ${NOVU_WS_PORT}:3002
+    depends_on:
+      - novu-db
+      - redis
+    networks:
+      - moona-backend
+
+  novu-web:
+    image: 'ghcr.io/novuhq/novu/web:0.8.0'
+    container_name: moona-novu-web
+    environment:
+      REACT_APP_API_URL: ${NOVU_API_ROOT_URL}
+      REACT_APP_ENVIRONMENT: ${NODE_ENV}
+      REACT_APP_WIDGET_EMBED_PATH: ${NOVU_WIDGET_EMBED_PATH}
+      REACT_APP_DOCKER_HOSTED_ENV: 'true'
+    ports:
+      - ${NOVU_WEB_PORT}:4200
+    depends_on:
+      - novu-api
+    networks:
+      - moona-backend
+
+  novu-widget:
+    image: 'ghcr.io/novuhq/novu/widget:0.8.0'
+    depends_on:
+      - novu-api
+      - novu-web
+    container_name: moona-novu-widget
+    environment:
+      REACT_APP_API_URL: ${NOVU_API_ROOT_URL}
+      REACT_APP_WS_URL: ${NOVU_REACT_APP_WS_URL}
+      REACT_APP_ENVIRONMENT: ${NODE_ENV}
+    ports:
+      - ${NOVU_WIDGET_PORT}:4500
+    networks:
+      - moona-backend
+
+  novu-embed:
+    image: 'ghcr.io/novuhq/novu/embed:0.8.0'
+    depends_on:
+      - novu-widget
+    container_name: embed
+    environment:
+      WIDGET_URL: ${NOVU_WIDGET_URL}
+    ports:
+      - ${NOVU_EMBED_PORT}:4701
+    networks:
+      - moona-backend
+
 networks:
   moona-backend:
     driver: bridge
@@ -84,3 +192,5 @@ volumes:
     name: moona-redis
   minio:
     name: moona-minio
+  mongodb:
+    name: moona-mongodb

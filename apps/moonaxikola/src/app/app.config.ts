@@ -1,6 +1,6 @@
 import { ConfigModuleOptions, registerAs } from '@nestjs/config';
 import joi from 'joi';
-import { NestConfigExtension, databaseEnvConfig } from '@moona-backend/common/infrastructure';
+import { NestConfigExtension, databaseEnvConfig, novuEnvConfig } from '@moona-backend/common/infrastructure';
 
 export interface AppConfig {
   isDev: boolean;
@@ -20,9 +20,10 @@ export const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
   envFilePath: ['.env', '.env.dev'],
   cache: process.env.NODE_ENV === 'production',
-  load: [appEnvConfig.variables, databaseEnvConfig.variables],
+  load: [appEnvConfig.variables, databaseEnvConfig.variables, novuEnvConfig.variables],
   validationSchema: joi.object({
     ...appEnvConfig.validationSchema,
     ...databaseEnvConfig.validationSchema,
+    ...novuEnvConfig.validationSchema,
   }),
 };
