@@ -1,13 +1,14 @@
-import { IsString, IsEmail, IsDate, IsOptional } from 'class-validator';
+import { IsEmail, IsDate, IsOptional } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity } from '@moona-backend/common/domain';
 import { UserFactoryPayload } from '../@types';
+import { IsPassword } from '@moona-backend/common/utils';
 
 export class User extends BaseEntity<string> {
   @IsEmail()
   private _email: string;
 
-  @IsString()
+  @IsPassword()
   private _password: string;
 
   @IsDate()

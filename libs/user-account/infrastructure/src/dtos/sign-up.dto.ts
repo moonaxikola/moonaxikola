@@ -1,5 +1,6 @@
+import { Match, IsPassword, IsUsername } from '@moona-backend/common/utils';
 import { SignUpUseCasePayload } from '@moona-backend/user-account/use-cases';
-import { IsAlphanumeric, IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
 interface SignUpRequest extends SignUpUseCasePayload {
   confirmPassword: string;
@@ -7,21 +8,22 @@ interface SignUpRequest extends SignUpUseCasePayload {
 
 export class SignUpDto implements SignUpRequest {
   @IsString()
+  @MinLength(2)
   firstName: string;
 
   @IsString()
+  @MinLength(2)
   lastName: string;
 
   @IsEmail()
   email: string;
 
-  @IsAlphanumeric()
+  @IsUsername()
   username: string;
 
-  @IsString()
-  @MinLength(8)
+  @IsPassword()
   password: string;
 
-  @IsString()
+  @Match('password')
   confirmPassword: string;
 }
