@@ -1,13 +1,13 @@
-import { SignUpUseCase } from '@moona-backend/user-account/use-cases';
+import { SignUpUseCase, ConfirmEmailUseCase } from '@moona-backend/user-account/use-cases';
 import { EventEmitterService } from '@moona-backend/common/infrastructure';
 import { Module, Provider, Type } from '@nestjs/common';
 
 import { UserRepository } from './repositories';
 import { UserMailer } from './mailer';
-import { UserAccountController } from './controllers';
+import { SignUpController, EmailVerificationController } from './controllers';
 import { UserAccountListener } from './listeners';
 
-const controllers: Type[] = [UserAccountController];
+const controllers: Type[] = [SignUpController, EmailVerificationController];
 
 const repositories: Provider[] = [UserRepository];
 
@@ -20,6 +20,11 @@ const useCases: Provider[] = [
     provide: SignUpUseCase,
     inject: [UserRepository, EventEmitterService],
     useFactory: (userRepository, eventEmitter) => new SignUpUseCase(userRepository, eventEmitter),
+  },
+  {
+    provide: ConfirmEmailUseCase,
+    inject: [UserRepository],
+    useFactory: userRepository => new ConfirmEmailUseCase(userRepository),
   },
 ];
 

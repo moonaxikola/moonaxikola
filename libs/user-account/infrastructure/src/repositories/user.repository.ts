@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaRepository } from '@moona-backend/common/infrastructure';
 import { User, UserRepositoryPort } from '@moona-backend/user-account/domain';
-import { Injectable } from '@nestjs/common/decorators';
 
 import { UserMapper } from '../mappers';
 
@@ -39,5 +39,35 @@ export class UserRepository extends PrismaRepository implements UserRepositoryPo
       where: { id: user.id },
       data: UserMapper.toOrm(user),
     });
+  }
+
+  private getEmailConfirmationTokenKey(token: string): string {
+    return `email-confirm-token:${token}`;
+  }
+
+  async getEmailByConfirmationToken(token: string): Promise<string> {
+    return <string>await this.redis.get(this.getEmailConfirmationTokenKey(token));
+  }
+
+  async markEmailAsConfirmed(email: string, token: string): Promise<void> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+
+    if (!user || !!user.emailVerifiedAt) return;
+
+    await this.prisma.user.update({
+      where: { email },
+      data: { emailVerifiedAt: new Date() },
+    });
+
+    await this.deleteEmailConfirmationToken(token);
+  }
+
+  async deleteEmailConfirmationToken(token: string): Promise<void> {
+    await this.redis.del(this.getEmailConfirmationTokenKey(token));
+  }
+
+  async saveEmailConfirmationToken(email: string, token: string): Promise<void> {
+    const TWELVE_HEURES_IN_SECONDS = 60 * 60 * 12;
+    await this.redis.set(this.getEmailConfirmationTokenKey(token), email, { ttl: TWELVE_HEURES_IN_SECONDS });
   }
 }

@@ -3,3 +3,7 @@ export const ENTITY_EXCEPTION_CODE = {
   NOT_FOUND: 'D1404',
   ALREADY_EXISTS: 'D1409',
 };
+
+export const GENERAL_EXCEPTION_CODE = {
+  BAD_REQUEST: 'D400',
+};
