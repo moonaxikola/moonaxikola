@@ -52,10 +52,10 @@ export class AuthService {
 
   async getAuthenticatedUser(email: string, password: string): Promise<User> {
     const user = await this.userRepository.findByEmail(email);
-    assert(user, new UnauthorizedException('Invalid credentials'));
 
-    const isPasswordMatching = await user.comparePassword(password);
-    assert(isPasswordMatching, new UnauthorizedException('Invalid credentials'));
+    assert(user, new UnauthorizedException('Invalid credentials'));
+    assert(await user.comparePassword(password), new UnauthorizedException('Invalid credentials'));
+    assert(user.isEmailVerified(), new UnauthorizedException('Email is not verified'));
 
     return user;
   }

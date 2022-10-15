@@ -13,9 +13,9 @@ import { AuthService } from './services';
 import { UserAccountListener } from './listeners';
 import { LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy } from './strategies';
 import { UserRepository, RefreshTokenRepository } from './repositories';
-import { EmailVerificationController, AuthController } from './controllers';
+import { EmailVerificationController, AuthController, AccountController } from './controllers';
 
-const controllers: Type[] = [AuthController, EmailVerificationController];
+const controllers: Type[] = [AuthController, EmailVerificationController, AccountController];
 
 const repositories: Provider[] = [UserRepository, RefreshTokenRepository];
 
