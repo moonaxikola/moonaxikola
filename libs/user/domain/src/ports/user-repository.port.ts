@@ -7,7 +7,9 @@ export interface UserRepositoryPort extends BaseRepositoryport<User> {
   findByEmail(email: string): Promise<User | null>;
   findByUsername(username: string): Promise<User | null>;
   getEmailByConfirmationToken(token: string): Promise<string | null>;
+  getEmailByPasswordResetToken(token: string): Promise<string | null>;
   deleteEmailConfirmationToken(token: string): Promise<void>;
+  deletePasswordResetToken(token: string): Promise<void>;
   saveEmailConfirmationToken(email: string, token: string): Promise<void>;
   markEmailAsConfirmed(email: string, token: string): Promise<void>;
 }

@@ -8,6 +8,7 @@ import {
   ResendConfirmationEmailUseCase,
   ChangePasswordUseCase,
   ForgotPasswordUseCase,
+  ResetPasswordUseCase,
 } from '@moona-backend/user/use-cases';
 
 import { UserMailer } from './mailer';
@@ -49,6 +50,11 @@ const useCases: Provider[] = [
     provide: ForgotPasswordUseCase,
     inject: [UserRepository, EventEmitterService],
     useFactory: (userRepository, event) => new ForgotPasswordUseCase(userRepository, event),
+  },
+  {
+    provide: ResetPasswordUseCase,
+    inject: [UserRepository],
+    useFactory: userRepository => new ResetPasswordUseCase(userRepository),
   },
   {
     provide: ConfirmEmailUseCase,
