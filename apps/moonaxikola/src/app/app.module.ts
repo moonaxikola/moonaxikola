@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TaggedRedisModule } from '@moona-backend/common/nest-tagged-redis';
 import { CommonModule } from '@moona-backend/common/infrastructure';
-import { UserAccountModule } from '@moona-backend/user-account/infrastructure';
+import { UserModule } from '@moona-backend/user/infrastructure';
 
 import { configModuleOptions } from './app.config';
 import { AppController } from './app.controller';
@@ -16,7 +16,7 @@ import { AppService } from './app.service';
       readyLog: true,
       config: { host: 'localhost', port: 6379 },
     }),
-    UserAccountModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
