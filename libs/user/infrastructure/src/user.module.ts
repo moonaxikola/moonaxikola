@@ -7,6 +7,7 @@ import {
   ConfirmEmailUseCase,
   ResendConfirmationEmailUseCase,
   ChangePasswordUseCase,
+  ForgotPasswordUseCase,
 } from '@moona-backend/user/use-cases';
 
 import { UserMailer } from './mailer';
@@ -14,9 +15,19 @@ import { AuthService } from './services';
 import { UserAccountListener } from './listeners';
 import { LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy } from './strategies';
 import { UserRepository, RefreshTokenRepository } from './repositories';
-import { EmailVerificationController, AuthController, AccountController } from './controllers';
+import {
+  EmailVerificationController,
+  AuthController,
+  AccountController,
+  ResetPasswordController,
+} from './controllers';
 
-const controllers: Type[] = [AuthController, EmailVerificationController, AccountController];
+const controllers: Type[] = [
+  AuthController,
+  EmailVerificationController,
+  AccountController,
+  ResetPasswordController,
+];
 
 const repositories: Provider[] = [UserRepository, RefreshTokenRepository];
 
@@ -33,6 +44,11 @@ const useCases: Provider[] = [
     provide: SignUpUseCase,
     inject: [UserRepository, EventEmitterService],
     useFactory: (userRepository, event) => new SignUpUseCase(userRepository, event),
+  },
+  {
+    provide: ForgotPasswordUseCase,
+    inject: [UserRepository, EventEmitterService],
+    useFactory: (userRepository, event) => new ForgotPasswordUseCase(userRepository, event),
   },
   {
     provide: ConfirmEmailUseCase,

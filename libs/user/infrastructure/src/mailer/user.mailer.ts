@@ -42,4 +42,22 @@ export class UserMailer implements UserMailerPort {
       },
     });
   }
+
+  async sendPasswordResetEmail(user: UserProps): Promise<void> {
+    const token = randomString(32);
+    const url = new URL(this.config.get('frontend.passwordResetUrl'));
+    url.searchParams.append('token', token);
+
+    await this.userRepository.savePasswordResetToken(user.email, token);
+
+    this.novu.trigger('user-forgot-password-email', {
+      to: {
+        subscriberId: user.id,
+      },
+      payload: {
+        firstName: user.firstName,
+        url: url.href,
+      },
+    });
+  }
 }

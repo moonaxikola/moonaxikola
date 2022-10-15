@@ -55,8 +55,21 @@ export class UserRepository extends PrismaRepository implements UserRepositoryPo
     return `email-confirm-token:${token}`;
   }
 
+  private getPasswordResetTokenKey(token: string): string {
+    return `password-reset-token:${token}`;
+  }
+
   async getEmailByConfirmationToken(token: string): Promise<string> {
     return <string>await this.redis.get(this.getEmailConfirmationTokenKey(token));
+  }
+
+  async getEmailByPasswordResetToken(token: string): Promise<string> {
+    return <string>await this.redis.get(this.getPasswordResetTokenKey(token));
+  }
+
+  async savePasswordResetToken(email: string, token: string): Promise<void> {
+    const TWELVE_HEURES_IN_SECONDS = 60 * 60 * 12;
+    await this.redis.set(this.getPasswordResetTokenKey(token), email, { ttl: TWELVE_HEURES_IN_SECONDS });
   }
 
   async markEmailAsConfirmed(email: string, token: string): Promise<void> {

@@ -1,5 +1,6 @@
 import {
   UserCreatedEvent,
+  PasswordResetEvent,
   ResendConfirmationEmailEvent,
   WelcomeUserListener,
 } from '@moona-backend/user/domain';
@@ -29,5 +30,10 @@ export class UserAccountListener {
   @OnEvent(ResendConfirmationEmailEvent.eventName)
   async handleResendConfirmationEmailEvent(event: ResendConfirmationEmailEvent) {
     await this.userMailer.sendVerificationEmail(event.data);
+  }
+
+  @OnEvent(PasswordResetEvent.eventName)
+  async handlePasswordResetEvent(event: PasswordResetEvent) {
+    await this.userMailer.sendPasswordResetEmail(event.data);
   }
 }
