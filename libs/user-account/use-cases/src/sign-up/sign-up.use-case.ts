@@ -1,3 +1,4 @@
+import assert from 'node:assert';
 import { EventEmitter } from '@moona-backend/common/domain';
 import {
   CreateUserPayload,
@@ -14,10 +15,10 @@ export class SignUpUseCase implements ISignUpUseCase {
 
   async execute(payload: CreateUserPayload): Promise<UserProps> {
     const doesEmailExist = await this.userRepository.countByEmail(payload.email);
-    if (doesEmailExist) throw new UserAlreadyExistsException('email', payload.email);
+    assert(!doesEmailExist, new UserAlreadyExistsException('email', payload.email));
 
     const doesUsernameExist = await this.userRepository.countByUsername(payload.username);
-    if (doesUsernameExist) throw new UserAlreadyExistsException('username', payload.username);
+    assert(!doesUsernameExist, new UserAlreadyExistsException('username', payload.username));
 
     const user = await User.create(payload);
 
