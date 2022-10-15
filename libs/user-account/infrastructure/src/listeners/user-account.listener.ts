@@ -1,4 +1,8 @@
-import { UserCreatedEvent, WelcomeUserListener } from '@moona-backend/user-account/domain';
+import {
+  UserCreatedEvent,
+  ResendConfirmationEmailEvent,
+  WelcomeUserListener,
+} from '@moona-backend/user-account/domain';
 import { NovuService } from '@moona-backend/common/infrastructure';
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -20,5 +24,10 @@ export class UserAccountListener {
     });
 
     await new WelcomeUserListener(this.userMailer).handle(event);
+  }
+
+  @OnEvent(ResendConfirmationEmailEvent.eventName)
+  async handleResendConfirmationEmailEvent(event: ResendConfirmationEmailEvent) {
+    await this.userMailer.sendVerificationEmail(event.data);
   }
 }

@@ -6,12 +6,22 @@ import { UserMapper } from '../mappers';
 
 @Injectable()
 export class UserRepository extends PrismaRepository implements UserRepositoryPort {
-  async getOneById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: { id } });
-    return UserMapper.toDomain(user);
+    return user ? UserMapper.toDomain(user) : null;
   }
 
-  async getManyByIds(ids: string[]): Promise<User[]> {
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    return user ? UserMapper.toDomain(user) : null;
+  }
+
+  async findByUsername(username: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({ where: { username } });
+    return user ? UserMapper.toDomain(user) : null;
+  }
+
+  async findByIds(ids: string[]): Promise<User[]> {
     const users = await this.prisma.user.findMany({ where: { id: { in: ids } } });
     return Promise.all(users.map(async user => await UserMapper.toDomain(user)));
   }
