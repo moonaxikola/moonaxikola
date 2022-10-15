@@ -19,7 +19,9 @@
       "@moona-backend/authentication/domain": ["libs/authentication/domain/src/index.ts"],
       "@moona-backend/common/domain": ["libs/common/domain/src/index.ts"],
       "@moona-backend/common/infrastructure": ["libs/common/infrastructure/src/index.ts"],
+      "@moona-backend/common/nest-tagged-redis": ["libs/common/nest-tagged-redis/src/index.ts"],
       "@moona-backend/common/use-cases": ["libs/common/use-cases/src/index.ts"],
+      "@moona-backend/common/utils": ["libs/common/utils/src/index.ts"],
       "@moona-backend/user-account/domain": ["libs/user-account/domain/src/index.ts"],
       "@moona-backend/user-account/infrastructure": ["libs/user-account/infrastructure/src/index.ts"],
       "@moona-backend/user-account/use-cases": ["libs/user-account/use-cases/src/index.ts"]

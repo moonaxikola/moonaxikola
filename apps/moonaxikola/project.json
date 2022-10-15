@@ -29,6 +29,18 @@
         }
       }
     },
+    "repl": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/moonaxikola-repl",
+        "main": "apps/moonaxikola/src/repl.ts",
+        "tsConfig": "apps/moonaxikola/tsconfig.app.json",
+        "assets": ["apps/moonaxikola/src/assets"]
+      }
+    },
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
@@ -38,6 +50,12 @@
         "production": {
           "buildTarget": "moonaxikola:build:production"
         }
+      }
+    },
+    "serve-repl": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "moonaxikola:repl"
       }
     },
     "lint": {
