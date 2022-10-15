@@ -27,8 +27,17 @@ export class AuthService {
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${accessExpiresIn}`;
   }
 
-  getCookiesForLogOut() {
-    return ['Authentication=; HttpOnly; Path=/; Max-Age=0', 'Refresh=; HttpOnly; Path=/; Max-Age=0'];
+  getCookieWithJwtRefreshToken(userId: string) {
+    const refreshExpiresIn = this.config.get('auth.refreshTokenExpiresIn');
+
+    const payload: JwtTokenPayload = { userId };
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: this.config.get('auth.refreshTokenSecret'),
+      expiresIn: refreshExpiresIn,
+    });
+    const refreshTokenCookie = `Refresh=${refreshToken}; HttpOnly; Path=/; Max-Age=${refreshExpiresIn}`;
+
+    return { refreshTokenCookie, refreshToken };
   }
 
   async getUserFromAccessToken(token: string): Promise<User | null> {
@@ -49,5 +58,9 @@ export class AuthService {
     assert(isPasswordMatching, new UnauthorizedException('Invalid credentials'));
 
     return user;
+  }
+
+  getCookiesForLogOut() {
+    return ['Authentication=; HttpOnly; Path=/; Max-Age=0', 'Refresh=; HttpOnly; Path=/; Max-Age=0'];
   }
 }

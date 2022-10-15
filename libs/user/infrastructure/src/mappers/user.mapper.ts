@@ -28,6 +28,7 @@ export const UserMapper: EntityMapper<User, PrismaUser> = {
       updatedAt: user.updatedAt,
       emailVerifiedAt: user.emailVerifiedAt,
       username: user.username,
+      refreshToken: undefined,
     };
   },
 };

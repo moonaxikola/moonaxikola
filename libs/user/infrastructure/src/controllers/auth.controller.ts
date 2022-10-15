@@ -1,9 +1,10 @@
 import { Controller, HttpCode, HttpStatus, Post, Req, UseGuards, Body } from '@nestjs/common';
 import { SignUpUseCase } from '@moona-backend/user/use-cases';
 
+import { RefreshTokenRepository } from '../repositories';
 import { SignUpDto } from '../dtos';
 import { RequestWithUser } from '../interfaces';
-import { LocalAuthenticationGuard } from '../guards';
+import { JwtRefreshGuard, LocalAuthenticationGuard } from '../guards';
 import { AuthService } from '../services';
 import { JwtAuthenticationGuard } from '../guards';
 
@@ -12,6 +13,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly emailSignUpUseCase: SignUpUseCase,
+    private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
   @Post('sign-up/email')
@@ -27,16 +29,29 @@ export class AuthController {
     const { user } = request;
 
     const accessTokenCookie = this.authService.getCookieWithJwtAccessToken(user.id);
+    const { refreshTokenCookie, refreshToken } = this.authService.getCookieWithJwtRefreshToken(user.id);
 
-    request.res.setHeader('Set-Cookie', [accessTokenCookie]);
+    await this.refreshTokenRepository.setRefreshToken(user, refreshToken);
 
-    return user.toProps();
+    request.res.setHeader('Set-Cookie', [accessTokenCookie, refreshTokenCookie]);
+
+    return user;
   }
 
   @UseGuards(JwtAuthenticationGuard)
   @Post('sign-out')
   @HttpCode(HttpStatus.OK)
   async signOut(@Req() request: RequestWithUser) {
+    await this.refreshTokenRepository.removeRefreshToken(request.user);
     request.res.setHeader('Set-Cookie', this.authService.getCookiesForLogOut());
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh-token')
+  refresh(@Req() request: RequestWithUser) {
+    const accessTokenCookie = this.authService.getCookieWithJwtAccessToken(request.user.id);
+
+    request.res.setHeader('Set-Cookie', accessTokenCookie);
+    return request.user.toProps();
   }
 }

@@ -8,16 +8,16 @@ import {
   ResendConfirmationEmailUseCase,
 } from '@moona-backend/user/use-cases';
 
-import { UserRepository } from './repositories';
 import { UserMailer } from './mailer';
-import { EmailVerificationController, AuthController } from './controllers';
-import { UserAccountListener } from './listeners';
 import { AuthService } from './services';
-import { LocalStrategy, JwtStrategy } from './strategies';
+import { UserAccountListener } from './listeners';
+import { LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy } from './strategies';
+import { UserRepository, RefreshTokenRepository } from './repositories';
+import { EmailVerificationController, AuthController } from './controllers';
 
 const controllers: Type[] = [AuthController, EmailVerificationController];
 
-const repositories: Provider[] = [UserRepository];
+const repositories: Provider[] = [UserRepository, RefreshTokenRepository];
 
 const mailers: Provider[] = [UserMailer];
 
@@ -25,7 +25,7 @@ const eventListeners: Provider[] = [UserAccountListener];
 
 const services: Provider[] = [AuthService];
 
-const strategies: Provider[] = [LocalStrategy, JwtStrategy];
+const strategies: Provider[] = [LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy];
 
 const useCases: Provider[] = [
   {

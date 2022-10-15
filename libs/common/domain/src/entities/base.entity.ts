@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 import { Optional } from '../@types';
 import { EntityValidationException, EntityEmptyIdException } from '../exceptions';
@@ -7,6 +8,7 @@ export abstract class BaseEntity<Identifier extends string | number> {
   @IsNotEmpty()
   protected _id: Optional<Identifier>;
 
+  @Expose()
   public get id(): Identifier {
     if (!this._id) {
       throw new EntityEmptyIdException(this.constructor.name);

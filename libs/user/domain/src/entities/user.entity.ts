@@ -3,9 +3,12 @@ import { IsString, IsEmail, IsDate, IsOptional, MinLength } from 'class-validato
 import * as bcrypt from 'bcrypt';
 import { BaseEntity, Optional } from '@moona-backend/common/domain';
 import { IsPassword } from '@moona-backend/common/utils';
+import { Exclude, Expose } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 
 import { UserFactoryPayload, CreateUserPayload, UserProps } from '../@types';
 
+@Exclude()
 export class User extends BaseEntity<string> {
   @IsString()
   @MinLength(2)
@@ -54,22 +57,27 @@ export class User extends BaseEntity<string> {
     await this.validate();
   }
 
+  @Expose()
   public get username(): string {
     return this._username;
   }
 
+  @Expose()
   public get fullName(): string {
     return `${this._firstName} ${this._lastName}`;
   }
 
+  @Expose()
   public get firstName(): string {
     return this._firstName;
   }
 
+  @Expose()
   public get lastName(): string {
     return this._lastName;
   }
 
+  @Expose()
   public get email(): string {
     return this._email;
   }
@@ -78,14 +86,17 @@ export class User extends BaseEntity<string> {
     return this._password;
   }
 
+  @Expose()
   public get emailVerifiedAt(): Optional<Date> {
     return this._emailVerifiedAt;
   }
 
+  @Expose()
   public get createdAt(): Date {
     return this._createdAt;
   }
 
+  @Expose()
   public get updatedAt(): Optional<Date> {
     return this._updatedAt;
   }
@@ -119,15 +130,6 @@ export class User extends BaseEntity<string> {
   }
 
   public toProps(): UserProps {
-    return {
-      id: this._id,
-      firstName: this._firstName,
-      lastName: this._lastName,
-      email: this._email,
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      username: this._username,
-      emailVerifiedAt: this._emailVerifiedAt,
-    };
+    return instanceToPlain(this) as UserProps;
   }
 }
