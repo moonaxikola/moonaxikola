@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { PrismaService } from 'nestjs-prisma';
+import cookieParser from 'cookie-parser';
 
 import { AppModule } from './app/app.module';
 import { CustomExceptionFilter } from './app/exception.filter';
@@ -8,6 +9,7 @@ import { CustomExceptionFilter } from './app/exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new CustomExceptionFilter());
   app.get(PrismaService).enableShutdownHooks(app);

@@ -10,7 +10,7 @@ export class ConfirmEmailUseCase implements IConfirmEmailUseCase {
   async execute({ token }: ConfirmEmailUseCasePayload): Promise<void> {
     const email = await this.userRepository.getEmailByConfirmationToken(token);
 
-    assert.ok(!!email, new BadRequestException('Invalid confirmation token'));
+    assert.ok(email, new BadRequestException('Invalid confirmation token'));
 
     await this.userRepository.markEmailAsConfirmed(email, token);
   }

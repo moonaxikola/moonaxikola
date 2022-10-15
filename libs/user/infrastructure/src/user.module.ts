@@ -1,4 +1,6 @@
 import { Module, Provider, Type } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { EventEmitterService } from '@moona-backend/common/infrastructure';
 import {
   SignUpUseCase,
@@ -8,16 +10,22 @@ import {
 
 import { UserRepository } from './repositories';
 import { UserMailer } from './mailer';
-import { SignUpController, EmailVerificationController } from './controllers';
+import { EmailVerificationController, AuthController } from './controllers';
 import { UserAccountListener } from './listeners';
+import { AuthService } from './services';
+import { LocalStrategy, JwtStrategy } from './strategies';
 
-const controllers: Type[] = [SignUpController, EmailVerificationController];
+const controllers: Type[] = [AuthController, EmailVerificationController];
 
 const repositories: Provider[] = [UserRepository];
 
 const mailers: Provider[] = [UserMailer];
 
 const eventListeners: Provider[] = [UserAccountListener];
+
+const services: Provider[] = [AuthService];
+
+const strategies: Provider[] = [LocalStrategy, JwtStrategy];
 
 const useCases: Provider[] = [
   {
@@ -39,6 +47,7 @@ const useCases: Provider[] = [
 
 @Module({
   controllers,
-  providers: [...repositories, ...mailers, ...useCases, ...eventListeners],
+  imports: [PassportModule, JwtModule],
+  providers: [...repositories, ...mailers, ...useCases, ...services, ...eventListeners, ...strategies],
 })
 export class UserModule {}

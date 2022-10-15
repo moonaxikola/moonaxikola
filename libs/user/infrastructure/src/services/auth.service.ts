@@ -1,0 +1,53 @@
+import assert from 'node:assert';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { User } from '@moona-backend/user/domain';
+import { JwtService } from '@nestjs/jwt';
+
+import { UserRepository } from '../repositories';
+import { JwtTokenPayload } from '../interfaces';
+import { ConfigService } from '@nestjs/config';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly jwtService: JwtService,
+    private readonly config: ConfigService,
+  ) {}
+
+  getCookieWithJwtAccessToken(userId: string): string {
+    const accessExpiresIn = this.config.get('auth.accessTokenExpiresIn');
+
+    const payload: JwtTokenPayload = { userId };
+    const token = this.jwtService.sign(payload, {
+      secret: this.config.get('auth.accessTokenSecret'),
+      expiresIn: accessExpiresIn,
+    });
+
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${accessExpiresIn}`;
+  }
+
+  getCookiesForLogOut() {
+    return ['Authentication=; HttpOnly; Path=/; Max-Age=0', 'Refresh=; HttpOnly; Path=/; Max-Age=0'];
+  }
+
+  async getUserFromAccessToken(token: string): Promise<User | null> {
+    const payload = this.jwtService.verify<JwtTokenPayload>(token, {
+      secret: this.config.get('auth.accessTokenSecret'),
+    });
+
+    assert(payload.userId, new UnauthorizedException('Invalid access token'));
+
+    return this.userRepository.findById(payload.userId);
+  }
+
+  async getAuthenticatedUser(email: string, password: string): Promise<User> {
+    const user = await this.userRepository.findByEmail(email);
+    assert(user, new UnauthorizedException('Invalid credentials'));
+
+    const isPasswordMatching = await user.comparePassword(password);
+    assert(isPasswordMatching, new UnauthorizedException('Invalid credentials'));
+
+    return user;
+  }
+}

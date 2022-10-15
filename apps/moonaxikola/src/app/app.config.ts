@@ -1,6 +1,7 @@
 import { ConfigModuleOptions, registerAs } from '@nestjs/config';
 import joi from 'joi';
 import { NestConfigExtension, databaseEnvConfig, novuEnvConfig } from '@moona-backend/common/infrastructure';
+import { authEnvConfig } from '@moona-backend/user/infrastructure';
 
 export interface AppConfig {
   isDev: boolean;
@@ -42,11 +43,13 @@ export const configModuleOptions: ConfigModuleOptions = {
     databaseEnvConfig.variables,
     novuEnvConfig.variables,
     frontendEnvConfig.variables,
+    authEnvConfig.variables,
   ],
   validationSchema: joi.object({
     ...appEnvConfig.validationSchema,
     ...databaseEnvConfig.validationSchema,
     ...novuEnvConfig.validationSchema,
     ...frontendEnvConfig.validationSchema,
+    ...authEnvConfig.validationSchema,
   }),
 };
