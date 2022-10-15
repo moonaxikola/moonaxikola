@@ -6,4 +6,5 @@ export const ENTITY_EXCEPTION_CODE = {
 
 export const GENERAL_EXCEPTION_CODE = {
   BAD_REQUEST: 'D400',
+  UNATHORAZED: 'D401',
 };

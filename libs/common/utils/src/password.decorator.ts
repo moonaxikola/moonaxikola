@@ -1,4 +1,5 @@
-import { Matches, ValidationOptions } from 'class-validator';
+import { applyDecorators } from '@nestjs/common';
+import { Matches, ValidationOptions, IsString } from 'class-validator';
 
 export const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})/;
 
@@ -8,5 +9,5 @@ export const IsPassword = (
       'Password must contain at least 6 characters, one uppercase letter, one lowercase letter, one number and one special character',
   },
 ) => {
-  return Matches(PASSWORD_REGEX, validationOptions);
+  return applyDecorators(IsString(), Matches(PASSWORD_REGEX, validationOptions));
 };

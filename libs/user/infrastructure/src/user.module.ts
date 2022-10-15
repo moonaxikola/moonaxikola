@@ -6,6 +6,7 @@ import {
   SignUpUseCase,
   ConfirmEmailUseCase,
   ResendConfirmationEmailUseCase,
+  ChangePasswordUseCase,
 } from '@moona-backend/user/use-cases';
 
 import { UserMailer } from './mailer';
@@ -37,6 +38,11 @@ const useCases: Provider[] = [
     provide: ConfirmEmailUseCase,
     inject: [UserRepository],
     useFactory: userRepository => new ConfirmEmailUseCase(userRepository),
+  },
+  {
+    provide: ChangePasswordUseCase,
+    inject: [UserRepository],
+    useFactory: userRepository => new ChangePasswordUseCase(userRepository),
   },
   {
     provide: ResendConfirmationEmailUseCase,
