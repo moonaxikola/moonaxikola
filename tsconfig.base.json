@@ -16,14 +16,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@moona-backend/common/domain": ["libs/common/domain/src/index.ts"],
-      "@moona-backend/common/infrastructure": ["libs/common/infrastructure/src/index.ts"],
-      "@moona-backend/common/nest-tagged-redis": ["libs/common/nest-tagged-redis/src/index.ts"],
-      "@moona-backend/common/use-cases": ["libs/common/use-cases/src/index.ts"],
-      "@moona-backend/common/utils": ["libs/common/utils/src/index.ts"],
-      "@moona-backend/user/domain": ["libs/user/domain/src/index.ts"],
-      "@moona-backend/user/infrastructure": ["libs/user/infrastructure/src/index.ts"],
-      "@moona-backend/user/use-cases": ["libs/user/use-cases/src/index.ts"]
+      "@moona-backend/core/common/contracts": ["libs/core/common/contracts/src/index.ts"],
+      "@moona-backend/core/common/domain": ["libs/core/common/domain/src/index.ts"],
+      "@moona-backend/core/common/infrastructure": ["libs/core/common/infrastructure/src/index.ts"],
+      "@moona-backend/core/common/use-cases": ["libs/core/common/use-cases/src/index.ts"],
+      "@moona-backend/core/common/utils": ["libs/core/common/utils/src/index.ts"],
+      "@moona-backend/core/user/domain": ["libs/core/user/domain/src/index.ts"],
+      "@moona-backend/core/user/infrastructure": ["libs/core/user/infrastructure/src/index.ts"],
+      "@moona-backend/core/user/use-cases": ["libs/core/user/use-cases/src/index.ts"],
+      "@moona-backend/nest-tagged-redis": ["libs/nest-tagged-redis/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
