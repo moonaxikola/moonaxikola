@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
@@ -24,7 +25,11 @@
       "@moona/core/user/domain": ["libs/core/user/domain/src/index.ts"],
       "@moona/core/user/infrastructure": ["libs/core/user/infrastructure/src/index.ts"],
       "@moona/core/user/use-cases": ["libs/core/user/use-cases/src/index.ts"],
-      "@moona/nest-tagged-redis": ["libs/nest-tagged-redis/src/index.ts"]
+      "@moona/nest-tagged-redis": ["libs/nest-tagged-redis/src/index.ts"],
+      "@moona/core/common/data-access": ["libs/core/common/data-access/src/index.ts"],
+      "@moona/core/common/web": ["libs/core/common/web/src/index.ts"],
+      "@moona/core/user/data-access": ["libs/core/user/data-access/src/index.ts"],
+      "@moona/core/user/web": ["libs/core/user/web/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

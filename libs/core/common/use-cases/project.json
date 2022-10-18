@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "core-common-use-cases",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/core/common/use-cases/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/core/common/use-cases"],
+      "outputs": ["{workspaceRoot}/coverage/libs/core/common/use-cases"],
       "options": {
         "jestConfig": "libs/core/common/use-cases/jest.config.ts",
         "passWithNoTests": true

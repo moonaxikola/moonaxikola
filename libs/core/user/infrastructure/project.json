@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "core-user-infrastructure",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/core/user/infrastructure/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/core/user/infrastructure"],
+      "outputs": ["{workspaceRoot}/coverage/libs/core/user/infrastructure"],
       "options": {
         "jestConfig": "libs/core/user/infrastructure/jest.config.ts",
         "passWithNoTests": true

@@ -1,8 +1,7 @@
 import { Expose } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { validate } from '@moona/core/common/utils';
+import { validate, Optional } from '@moona/core/common/utils';
 
-import { Optional } from '../interfaces';
 import { EntityValidationException, EntityEmptyIdException } from '../exceptions';
 
 export abstract class BaseEntity<Identifier extends string | number> {

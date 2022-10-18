@@ -5,3 +5,4 @@ export * from './match.decorator';
 export * from './password.decorator';
 export * from './username.decorator';
 export * from './validator';
+export * from './common.interface';

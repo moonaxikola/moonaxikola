@@ -1,4 +1,6 @@
-import { Optional, CreateExceptionPayload, CodeDescription } from '../interfaces';
+import { Optional } from '@moona/core/common/utils';
+
+import { CreateExceptionPayload, CodeDescription } from '../interfaces';
 
 export class Exception<Data> extends Error {
   public readonly code: string;

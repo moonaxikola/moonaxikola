@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import { IsString, IsEmail, IsDate, IsOptional, MinLength } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { BaseEntity, Optional } from '@moona/core/common/domain';
-import { IsPassword } from '@moona/core/common/utils';
+import { BaseEntity } from '@moona/core/common/domain';
+import { IsPassword, Optional } from '@moona/core/common/utils';
 import { Exclude, Expose } from 'class-transformer';
 import { instanceToPlain } from 'class-transformer';
 
