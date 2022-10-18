@@ -1,4 +1,4 @@
-import { ForgotPasswordUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { ForgotPasswordUseCasePayload } from '@moona/core/user/use-cases';
 import { IsEmail } from 'class-validator';
 
 export type ForgotPasswordRequest = ForgotPasswordUseCasePayload;

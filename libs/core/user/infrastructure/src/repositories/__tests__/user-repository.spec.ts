@@ -5,7 +5,7 @@ import { User as PrismaUser } from '@prisma/client';
 
 import { UserRepository } from '../user.repository';
 import { UserMapper } from '../../mappers';
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 
 const mockPrismaUser: PrismaUser = {
   id: '4563f9e7-944e-410e-8fe7-1ca199c0646d',

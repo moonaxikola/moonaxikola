@@ -1,5 +1,5 @@
-import { Match, IsPassword } from '@moona-backend/core/common/utils';
-import { ResetPasswordUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { Match, IsPassword } from '@moona/core/common/utils';
+import { ResetPasswordUseCasePayload } from '@moona/core/user/use-cases';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 interface ResetPasswordRequest extends ResetPasswordUseCasePayload {

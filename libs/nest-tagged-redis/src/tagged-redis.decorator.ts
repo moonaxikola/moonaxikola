@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { ClientNamespace, DEFAULT_REDIS_NAMESPACE } from '@liaoliaots/nestjs-redis';
-import { isSymbol } from '@moona-backend/core/common/utils';
+import { isSymbol } from '@moona/core/common/utils';
 
 import { REDIS_MODULE_ID } from './tagged-redis.constants';
 

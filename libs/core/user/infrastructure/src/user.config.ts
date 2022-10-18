@@ -1,4 +1,4 @@
-import { NestConfigExtension } from '@moona-backend/core/common/infrastructure';
+import { NestConfigExtension } from '@moona/core/common/infrastructure';
 import { registerAs } from '@nestjs/config';
 import joi from 'joi';
 

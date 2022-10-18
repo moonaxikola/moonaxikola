@@ -1,5 +1,5 @@
-import { IUserRepository } from '@moona-backend/core/user/domain';
-import { BadRequestException } from '@moona-backend/core/common/domain';
+import { IUserRepository } from '@moona/core/user/domain';
+import { BadRequestException } from '@moona/core/common/domain';
 import assert from 'node:assert';
 
 import { ConfirmEmailUseCasePayload, IConfirmEmailUseCase } from './confirm-email.interfaces';

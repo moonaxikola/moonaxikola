@@ -1,4 +1,4 @@
-import { InjectRedis, TaggedRedis } from '@moona-backend/nest-tagged-redis';
+import { InjectRedis, TaggedRedis } from '@moona/nest-tagged-redis';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 

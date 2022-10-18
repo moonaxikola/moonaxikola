@@ -1,4 +1,4 @@
-import { ForgotPasswordUseCase, ResetPasswordUseCase } from '@moona-backend/core/user/use-cases';
+import { ForgotPasswordUseCase, ResetPasswordUseCase } from '@moona/core/user/use-cases';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 
 import { ForgotPasswordRequestDto, ResetPasswordRequestDto } from '../dtos';

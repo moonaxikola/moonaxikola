@@ -1,4 +1,4 @@
-import { EventListener } from '@moona-backend/core/common/domain';
+import { EventListener } from '@moona/core/common/domain';
 
 import { IUserMailer } from '../ports';
 import { UserCreatedEvent } from '../events';

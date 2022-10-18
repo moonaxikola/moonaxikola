@@ -1,5 +1,5 @@
-import { Match, IsPassword, IsUsername } from '@moona-backend/core/common/utils';
-import { SignUpUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { Match, IsPassword, IsUsername } from '@moona/core/common/utils';
+import { SignUpUseCasePayload } from '@moona/core/user/use-cases';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export interface SignUpRequest extends SignUpUseCasePayload {

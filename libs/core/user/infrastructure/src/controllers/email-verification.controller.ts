@@ -1,4 +1,4 @@
-import { ConfirmEmailUseCase, ResendConfirmationEmailUseCase } from '@moona-backend/core/user/use-cases';
+import { ConfirmEmailUseCase, ResendConfirmationEmailUseCase } from '@moona/core/user/use-cases';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 
 import { ConfirmEmailRequestDto, ResendConfirmationEmailRequestDto } from '../dtos';

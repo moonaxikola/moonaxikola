@@ -1,5 +1,5 @@
 import { User as PrismaUser } from '@prisma/client';
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 import { UserMapper } from '../user.mapper';
 
 describe('User Mapper', () => {

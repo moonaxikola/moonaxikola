@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserRepository } from '../repositories';

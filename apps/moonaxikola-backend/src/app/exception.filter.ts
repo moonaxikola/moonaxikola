@@ -1,7 +1,7 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
-import { Exception } from '@moona-backend/core/common/domain';
-import { prismaHttpStatusMapping } from '@moona-backend/core/common/infrastructure';
+import { Exception } from '@moona/core/common/domain';
+import { prismaHttpStatusMapping } from '@moona/core/common/infrastructure';
 import { Prisma } from '@prisma/client';
 
 type IException = Exception<unknown> | HttpException | Prisma.PrismaClientKnownRequestError;

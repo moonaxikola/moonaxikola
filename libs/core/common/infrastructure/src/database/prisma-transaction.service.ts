@@ -1,4 +1,4 @@
-import { TransactionalUseCase, UseCase } from '@moona-backend/core/common/use-cases';
+import { TransactionalUseCase, UseCase } from '@moona/core/common/use-cases';
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';

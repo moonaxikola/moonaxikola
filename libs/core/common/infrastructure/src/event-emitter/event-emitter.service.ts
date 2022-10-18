@@ -1,4 +1,4 @@
-import { Event, EventEmitter } from '@moona-backend/core/common/domain';
+import { Event, EventEmitter } from '@moona/core/common/domain';
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 

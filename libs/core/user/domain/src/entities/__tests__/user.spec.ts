@@ -1,5 +1,5 @@
 import { v4 as uuid, validate as validateUuid } from 'uuid';
-import { EntityValidationException } from '@moona-backend/core/common/domain';
+import { EntityValidationException } from '@moona/core/common/domain';
 import { UserFactoryPayload, CreateUserPayload } from '../../@types';
 import { User } from '../user.entity';
 

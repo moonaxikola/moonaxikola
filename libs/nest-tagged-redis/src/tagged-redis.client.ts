@@ -1,5 +1,5 @@
 import Redis, { RedisKey, RedisOptions } from 'ioredis';
-import { removeDuplicates } from '@moona-backend/core/common/utils';
+import { removeDuplicates } from '@moona/core/common/utils';
 
 import { ITaggedRedis, SetOptions, RedisValue } from './tagged-redis.interfaces';
 import { TAGS_PREFIX } from './tagged-redis.constants';

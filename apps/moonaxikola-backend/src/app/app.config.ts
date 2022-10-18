@@ -1,11 +1,7 @@
 import { ConfigModuleOptions, registerAs } from '@nestjs/config';
 import joi from 'joi';
-import {
-  NestConfigExtension,
-  databaseEnvConfig,
-  novuEnvConfig,
-} from '@moona-backend/core/common/infrastructure';
-import { authEnvConfig } from '@moona-backend/core/user/infrastructure';
+import { NestConfigExtension, databaseEnvConfig, novuEnvConfig } from '@moona/core/common/infrastructure';
+import { authEnvConfig } from '@moona/core/user/infrastructure';
 
 export interface AppConfig {
   isDev: boolean;

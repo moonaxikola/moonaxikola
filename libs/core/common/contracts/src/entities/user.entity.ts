@@ -1,3 +1,3 @@
-import { UserProps } from '@moona-backend/core/user/domain';
+import { UserProps } from '@moona/core/user/domain';
 
 export type User = UserProps;

@@ -1,4 +1,4 @@
-import { Event } from '@moona-backend/core/common/domain';
+import { Event } from '@moona/core/common/domain';
 
 import { UserProps } from '../interface';
 

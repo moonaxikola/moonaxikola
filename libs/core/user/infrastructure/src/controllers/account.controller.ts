@@ -1,4 +1,4 @@
-import { ChangePasswordUseCase } from '@moona-backend/core/user/use-cases';
+import { ChangePasswordUseCase } from '@moona/core/user/use-cases';
 import { UseGuards, Controller, Get, Req, Body, Put } from '@nestjs/common';
 import { ChangePasswordRequestDto } from '../dtos';
 

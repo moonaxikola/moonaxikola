@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 
 import { AuthService } from '../services';
 

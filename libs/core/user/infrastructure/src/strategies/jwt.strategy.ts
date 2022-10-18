@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';

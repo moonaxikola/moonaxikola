@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaRepository } from '@moona-backend/core/common/infrastructure';
-import { User } from '@moona-backend/core/user/domain';
+import { PrismaRepository } from '@moona/core/common/infrastructure';
+import { User } from '@moona/core/user/domain';
 import bcrypt from 'bcrypt';
 
 import { UserMapper } from '../mappers';

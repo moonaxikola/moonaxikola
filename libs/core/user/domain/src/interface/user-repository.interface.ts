@@ -1,4 +1,4 @@
-import { BaseRepositoryport } from '@moona-backend/core/common/domain';
+import { BaseRepositoryport } from '@moona/core/common/domain';
 
 import { User } from '../entities';
 

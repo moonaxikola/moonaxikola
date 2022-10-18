@@ -1,4 +1,4 @@
-import { ForgotPasswordUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { ForgotPasswordUseCasePayload } from '@moona/core/user/use-cases';
 
 export type ForgotPasswordRequest = ForgotPasswordUseCasePayload;
 

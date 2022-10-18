@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { validate } from '@moona-backend/core/common/utils';
+import { validate } from '@moona/core/common/utils';
 
 import { Optional } from '../interfaces';
 import { EntityValidationException, EntityEmptyIdException } from '../exceptions';

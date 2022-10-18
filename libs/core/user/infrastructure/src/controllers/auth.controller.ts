@@ -1,5 +1,5 @@
 import { Controller, HttpCode, HttpStatus, Post, Req, UseGuards, Body } from '@nestjs/common';
-import { SignUpUseCase } from '@moona-backend/core/user/use-cases';
+import { SignUpUseCase } from '@moona/core/user/use-cases';
 
 import { RefreshTokenRepository } from '../repositories';
 import { SignUpRequestDto } from '../dtos';

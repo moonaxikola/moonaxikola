@@ -1,4 +1,4 @@
-import { User } from '@moona-backend/core/user/domain';
+import { User } from '@moona/core/user/domain';
 import { Request } from 'express';
 
 export interface RequestWithUser extends Request {

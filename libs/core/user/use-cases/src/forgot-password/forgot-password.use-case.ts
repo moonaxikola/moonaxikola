@@ -1,5 +1,5 @@
-import { PasswordResetEvent, IUserRepository } from '@moona-backend/core/user/domain';
-import { EventEmitter } from '@moona-backend/core/common/domain';
+import { PasswordResetEvent, IUserRepository } from '@moona/core/user/domain';
+import { EventEmitter } from '@moona/core/common/domain';
 
 import { ForgotPasswordUseCasePayload, IForgotPasswordUseCase } from './forgot-password.interfaces';
 

@@ -1,5 +1,5 @@
-import { UserAlreadyExistsException, IUserRepository } from '@moona-backend/core/user/domain';
-import { ENTITY_EXCEPTION_CODE, EventEmitter } from '@moona-backend/core/common/domain';
+import { UserAlreadyExistsException, IUserRepository } from '@moona/core/user/domain';
+import { ENTITY_EXCEPTION_CODE, EventEmitter } from '@moona/core/common/domain';
 
 import { SignUpUseCasePayload } from '../sign-up.interfaces';
 import { SignUpUseCase } from '../sign-up.use-case';

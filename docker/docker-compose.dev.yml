@@ -15,7 +15,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
-      - moona-backend
+      - moona
 
   # REDIS
   redis:
@@ -29,7 +29,7 @@ services:
     volumes:
       - redis:/data
     networks:
-      - moona-backend
+      - moona
 
   # REDIS COMMANDER
   redis-commander:
@@ -42,7 +42,7 @@ services:
     depends_on:
       - redis
     networks:
-      - moona-backend
+      - moona
 
   # MAILHOG
   mailhog:
@@ -54,7 +54,7 @@ services:
       - ${SMTP_PORT}:1025
       - ${SMTP_DASHBOARD_PORT}:8025
     networks:
-      - moona-backend
+      - moona
 
   # MINIO
   minio:
@@ -71,7 +71,7 @@ services:
     volumes:
       - minio:/data
     networks:
-      - moona-backend
+      - moona
 
   # NOVU
   novu-db:
@@ -86,7 +86,7 @@ services:
     volumes:
       - mongodb:/data/db
     networks:
-      - moona-backend
+      - moona
 
   novu-api:
     image: 'ghcr.io/novuhq/novu/api:latest'
@@ -118,7 +118,7 @@ services:
       - novu-db
       - redis
     networks:
-      - moona-backend
+      - moona
 
   novu-ws:
     image: 'ghcr.io/novuhq/novu/ws:latest'
@@ -137,7 +137,7 @@ services:
       - novu-db
       - redis
     networks:
-      - moona-backend
+      - moona
 
   novu-web:
     image: 'ghcr.io/novuhq/novu/web:latest'
@@ -152,7 +152,7 @@ services:
     depends_on:
       - novu-api
     networks:
-      - moona-backend
+      - moona
 
   novu-widget:
     image: 'ghcr.io/novuhq/novu/widget:latest'
@@ -167,7 +167,7 @@ services:
     ports:
       - ${NOVU_WIDGET_PORT}:4500
     networks:
-      - moona-backend
+      - moona
 
   novu-embed:
     image: 'ghcr.io/novuhq/novu/embed:latest'
@@ -179,10 +179,10 @@ services:
     ports:
       - ${NOVU_EMBED_PORT}:4701
     networks:
-      - moona-backend
+      - moona
 
 networks:
-  moona-backend:
+  moona:
     driver: bridge
 
 volumes:

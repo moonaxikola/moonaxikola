@@ -1,4 +1,4 @@
-import { UseCase } from '@moona-backend/core/common/use-cases';
+import { UseCase } from '@moona/core/common/use-cases';
 
 export interface ConfirmEmailUseCasePayload {
   token: string;

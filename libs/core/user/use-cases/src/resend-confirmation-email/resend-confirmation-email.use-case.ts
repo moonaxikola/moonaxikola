@@ -2,8 +2,8 @@ import {
   ResendConfirmationEmailEvent,
   UserNotFoundException,
   IUserRepository,
-} from '@moona-backend/core/user/domain';
-import { BadRequestException, EventEmitter } from '@moona-backend/core/common/domain';
+} from '@moona/core/user/domain';
+import { BadRequestException, EventEmitter } from '@moona/core/common/domain';
 import assert from 'node:assert';
 
 import {

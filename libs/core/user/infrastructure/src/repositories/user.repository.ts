@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaRepository } from '@moona-backend/core/common/infrastructure';
-import { User, IUserRepository } from '@moona-backend/core/user/domain';
+import { PrismaRepository } from '@moona/core/common/infrastructure';
+import { User, IUserRepository } from '@moona/core/user/domain';
 
 import { UserMapper } from '../mappers';
 

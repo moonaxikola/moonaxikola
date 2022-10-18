@@ -1,6 +1,6 @@
 import assert from 'node:assert';
-import { IUserRepository } from '@moona-backend/core/user/domain';
-import { BadRequestException } from '@moona-backend/core/common/domain';
+import { IUserRepository } from '@moona/core/user/domain';
+import { BadRequestException } from '@moona/core/common/domain';
 
 import { ResetPasswordUseCasePayload, IResetPasswordUseCase } from './reset-password.interfaces';
 

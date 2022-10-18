@@ -1,6 +1,6 @@
 import { User as PrismaUser } from '@prisma/client';
-import { User } from '@moona-backend/core/user/domain';
-import { EntityMapper } from '@moona-backend/core/common/domain';
+import { User } from '@moona/core/user/domain';
+import { EntityMapper } from '@moona/core/common/domain';
 
 export const UserMapper: EntityMapper<User, PrismaUser> = {
   toDomain: async user => {

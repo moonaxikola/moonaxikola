@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TaggedRedisModule } from '@moona-backend/nest-tagged-redis';
-import { CommonModule } from '@moona-backend/core/common/infrastructure';
-import { UserModule } from '@moona-backend/core/user/infrastructure';
+import { TaggedRedisModule } from '@moona/nest-tagged-redis';
+import { CommonModule } from '@moona/core/common/infrastructure';
+import { UserModule } from '@moona/core/user/infrastructure';
 
 import { configModuleOptions } from './app.config';
 import { AppController } from './app.controller';

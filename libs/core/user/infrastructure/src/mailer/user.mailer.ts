@@ -1,6 +1,6 @@
-import { UserProps, IUserMailer } from '@moona-backend/core/user/domain';
-import { NovuService } from '@moona-backend/core/common/infrastructure';
-import { randomString } from '@moona-backend/core/common/utils';
+import { UserProps, IUserMailer } from '@moona/core/user/domain';
+import { NovuService } from '@moona/core/common/infrastructure';
+import { randomString } from '@moona/core/common/utils';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 

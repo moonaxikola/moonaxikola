@@ -1,12 +1,12 @@
 import assert from 'node:assert';
-import { EventEmitter } from '@moona-backend/core/common/domain';
+import { EventEmitter } from '@moona/core/common/domain';
 import {
   CreateUserPayload,
   IUserRepository,
   UserAlreadyExistsException,
   User,
   UserCreatedEvent,
-} from '@moona-backend/core/user/domain';
+} from '@moona/core/user/domain';
 import { ISignUpUseCase } from './sign-up.interfaces';
 
 export class SignUpUseCase implements ISignUpUseCase {

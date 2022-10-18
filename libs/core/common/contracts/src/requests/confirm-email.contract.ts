@@ -1,4 +1,4 @@
-import { ConfirmEmailUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { ConfirmEmailUseCasePayload } from '@moona/core/user/use-cases';
 
 export type ConfirmEmailRequest = ConfirmEmailUseCasePayload;
 

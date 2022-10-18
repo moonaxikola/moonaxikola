@@ -1,5 +1,5 @@
-import { Match, IsPassword } from '@moona-backend/core/common/utils';
-import { ChangePasswordRequest } from '@moona-backend/core/common/contracts';
+import { Match, IsPassword } from '@moona/core/common/utils';
+import { ChangePasswordRequest } from '@moona/core/common/contracts';
 
 export class ChangePasswordRequestDto implements ChangePasswordRequest {
   @IsPassword()

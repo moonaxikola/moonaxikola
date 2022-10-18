@@ -3,8 +3,8 @@ import {
   PasswordResetEvent,
   ResendConfirmationEmailEvent,
   WelcomeUserListener,
-} from '@moona-backend/core/user/domain';
-import { NovuService } from '@moona-backend/core/common/infrastructure';
+} from '@moona/core/user/domain';
+import { NovuService } from '@moona/core/common/infrastructure';
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 

@@ -1,7 +1,7 @@
 import { Module, Provider, Type } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { EventEmitterService } from '@moona-backend/core/common/infrastructure';
+import { EventEmitterService } from '@moona/core/common/infrastructure';
 import {
   SignUpUseCase,
   ConfirmEmailUseCase,
@@ -9,7 +9,7 @@ import {
   ChangePasswordUseCase,
   ForgotPasswordUseCase,
   ResetPasswordUseCase,
-} from '@moona-backend/core/user/use-cases';
+} from '@moona/core/user/use-cases';
 
 import { UserMailer } from './mailer';
 import { AuthService } from './services';

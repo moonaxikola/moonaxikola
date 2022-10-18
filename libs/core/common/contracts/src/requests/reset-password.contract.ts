@@ -1,4 +1,4 @@
-import { ResetPasswordUseCasePayload } from '@moona-backend/core/user/use-cases';
+import { ResetPasswordUseCasePayload } from '@moona/core/user/use-cases';
 
 export type ResetPasswordRequest = ResetPasswordUseCasePayload & {
   confirmNewPassword: string;
