@@ -3,8 +3,6 @@
   <strong>Empowering education in Angola</strong>
 </div>
 
-# Moonaxikola (WiP)
-
 This project was generated using [Nx](https://nx.dev).
 
 ## Features
