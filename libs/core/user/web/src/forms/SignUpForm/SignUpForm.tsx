@@ -22,7 +22,7 @@ export function SignUpForm({ onSubmit }: SignUpFormProps) {
       <PasswordField name="confirmPassword" label="Confirm password" required margin="normal" />
 
       <LoadingButton type="submit" loading={methods.formState.isSubmitting}>
-        Submit
+        Get started
       </LoadingButton>
     </FormProvider>
   );

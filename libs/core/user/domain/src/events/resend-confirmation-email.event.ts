@@ -1,6 +1,6 @@
 import { Event } from '@moona/core/common/domain';
 
-import { UserProps } from '../interface';
+import { UserProps } from '../interfaces';
 
 export class ResendConfirmationEmailEvent implements Event<UserProps> {
   static readonly eventName = 'email.confirmation.resend';

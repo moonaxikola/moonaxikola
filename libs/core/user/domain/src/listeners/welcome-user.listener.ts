@@ -1,6 +1,6 @@
 import { EventListener } from '@moona/core/common/domain';
 
-import { IUserMailer } from '../ports';
+import { IUserMailer } from '../interfaces';
 import { UserCreatedEvent } from '../events';
 
 export class WelcomeUserListener implements EventListener<UserCreatedEvent> {

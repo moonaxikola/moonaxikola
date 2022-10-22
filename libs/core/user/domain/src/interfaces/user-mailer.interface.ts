@@ -1,4 +1,4 @@
-import { UserProps } from '../interface';
+import { UserProps } from '.';
 
 export interface IUserMailer {
   sendWelcomeEmail(user: UserProps): Promise<void>;

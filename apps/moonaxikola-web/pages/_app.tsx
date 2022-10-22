@@ -1,27 +1,28 @@
 import 'reflect-metadata';
-import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { RequestProvider } from '@moona/core/common/data-access';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { appGetInitialProps, MoonaNextAppProps, MoonaNextProvider } from '@moona/core/common/web';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps, settings }: MoonaNextAppProps) {
+  const getLayout = Component.getLayout ?? (page => page);
+
   return (
-    <RequestProvider
-      config={{
-        baseURL: 'http://localhost:3333',
-        headers: { 'Content-Type': 'application/json' },
-      }}
-    >
-      <QueryClientProvider client={new QueryClient()}>
-        <Head>
-          <title>Welcome to Moonaxikola</title>
-        </Head>
-        <main className="app">
-          <Component {...pageProps} />
-        </main>
-      </QueryClientProvider>
-    </RequestProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <MoonaNextProvider
+        settings={settings}
+        requestConfig={{
+          config: {
+            baseURL: 'http://localhost:3000',
+            withCredentials: true,
+          },
+        }}
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </MoonaNextProvider>
+    </>
   );
 }
 
-export default CustomApp;
+MyApp.getInitialProps = appGetInitialProps;

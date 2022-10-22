@@ -1,6 +1,6 @@
 import { Event } from '@moona/core/common/domain';
 
-import { UserProps } from '../interface';
+import { UserProps } from '../interfaces';
 
 export class PasswordResetEvent implements Event<UserProps> {
   static readonly eventName = 'password.forgot';

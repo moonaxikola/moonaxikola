@@ -6,7 +6,7 @@ import { IsPassword, Optional } from '@moona/core/common/utils';
 import { Exclude, Expose } from 'class-transformer';
 import { instanceToPlain } from 'class-transformer';
 
-import { UserFactoryPayload, CreateUserPayload, UserProps } from '../interface';
+import { UserFactoryPayload, CreateUserPayload, UserProps } from '../interfaces';
 
 @Exclude()
 export class User extends BaseEntity<string> {
