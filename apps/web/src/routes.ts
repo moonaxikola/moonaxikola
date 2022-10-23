@@ -9,3 +9,15 @@ export function verifyEmail(email?: string, displayName?: string, token?: string
 
   return buildUrl('/verify-email', params);
 }
+
+export function resetPassword(token?: string) {
+  const params: Record<string, string> = {};
+
+  if (token) params.token = token;
+
+  return buildUrl('/reset-password', params);
+}
+
+export function home() {
+  return '/';
+}

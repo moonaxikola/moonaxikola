@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Typography, Divider } from '@mui/material';
+import { Typography } from '@mui/material';
 import { NextLink } from '@moona/common/web';
 
 import { AuthLayout } from '../components';
@@ -20,12 +20,6 @@ export default function SignUpPage() {
           Entrar
         </NextLink>
       </Typography>
-
-      <Divider>
-        <Typography marginY={4} variant="body2" color="text.secondary">
-          Ou
-        </Typography>
-      </Divider>
     </>
   );
 }

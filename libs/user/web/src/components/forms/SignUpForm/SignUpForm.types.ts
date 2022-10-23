@@ -1,5 +1,5 @@
 import { FormError } from '@moona/common/web';
-import { SignUpRequest } from '@moona/user/data-access';
+import { SignUpRequest } from '@moona/common/contracts';
 
 export type SignUpFormValues = SignUpRequest;
 
