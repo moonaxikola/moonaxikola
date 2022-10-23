@@ -8,8 +8,8 @@
     "docker:dev:up": "docker compose --file docker/docker-compose.dev.yml --env-file=.env.dev up --build -d",
     "docker:dev:down": "docker compose --file docker/docker-compose.dev.yml --env-file=.env.dev down",
     "test": "nx test",
-    "web:generate:component": "nx g @moona/react:component -p core-common-web",
-    "web:g:c": "nx g @moona/react:component -p core-common-web"
+    "web:generate:component": "nx g @moona/react:component -p common-web",
+    "web:g:c": "nx g @moona/react:component -p common-web"
   },
   "private": true,
   "dependencies": {
