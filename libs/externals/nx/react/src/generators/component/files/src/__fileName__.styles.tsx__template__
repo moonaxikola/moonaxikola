@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 
-import { <%= fileName %>Props } from './<%= fileName %>.types';
+import type { <%= fileName %>Props } from './<%= fileName %>.types';
 
 export const Root = styled('div')<<%= fileName %>Props>(({ theme }) => ({
   position: 'inherit',

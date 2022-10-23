@@ -1,4 +1,4 @@
-import { <%= fileName %>Props } from './<%= fileName %>.types';
+import type { <%= fileName %>Props } from './<%= fileName %>.types';
 import { Root } from './<%= fileName %>.styles';
 
 export function <%= fileName %>({ children }: <%= fileName %>Props) {

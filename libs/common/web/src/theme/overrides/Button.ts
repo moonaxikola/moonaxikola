@@ -8,7 +8,7 @@ export default function Button(theme: Theme): Pick<ThemeComponents, 'MuiButton' 
   return {
     MuiButton: {
       defaultProps: {
-        variant: 'dashed',
+        variant: 'contained',
       },
       variants: [
         {
@@ -29,7 +29,7 @@ export default function Button(theme: Theme): Pick<ThemeComponents, 'MuiButton' 
     },
     MuiLoadingButton: {
       defaultProps: {
-        variant: 'dashed',
+        variant: 'contained',
       },
     },
   };

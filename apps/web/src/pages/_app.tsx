@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import Head from 'next/head';
 import { appGetInitialProps, MoonaNextAppProps, MoonaNextProvider } from '@moona/common/web';
 
+import { requestConfig } from '../config';
+
 export default function MyApp({ Component, pageProps, settings }: MoonaNextAppProps) {
   const getLayout = Component.getLayout ?? (page => page);
 
@@ -10,15 +12,7 @@ export default function MyApp({ Component, pageProps, settings }: MoonaNextAppPr
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <MoonaNextProvider
-        settings={settings}
-        requestConfig={{
-          config: {
-            baseURL: 'http://localhost:3000',
-            withCredentials: true,
-          },
-        }}
-      >
+      <MoonaNextProvider settings={settings} requestConfig={requestConfig}>
         {getLayout(<Component {...pageProps} />)}
       </MoonaNextProvider>
     </>

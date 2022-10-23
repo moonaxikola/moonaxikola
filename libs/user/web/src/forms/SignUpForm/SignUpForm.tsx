@@ -1,6 +1,7 @@
 import { FormProvider, TextField, PasswordField } from '@moona/common/web';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
+import { Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 import { SignUpFormProps, SignUpFormValues } from './SignUpForm.types';
@@ -13,17 +14,17 @@ export function SignUpForm({ onSubmit }: SignUpFormProps) {
   });
 
   return (
-    <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-      <TextField name="firstName" label="First name" required margin="normal" />
-      <TextField name="lastName" label="Last name" required margin="normal" />
-      <TextField name="email" type="email" label="Email address" required margin="normal" />
-      <TextField name="username" label="Username" margin="normal" />
-      <PasswordField name="password" label="Password" required margin="normal" />
-      <PasswordField name="confirmPassword" label="Confirm password" required margin="normal" />
+    <Stack spacing={2} component={FormProvider} methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
+      <TextField name="firstName" label="First name" required />
+      <TextField name="lastName" label="Last name" required />
+      <TextField name="email" type="email" label="Email address" required />
+      <TextField name="username" label="Username" required />
+      <PasswordField name="password" label="Password" required />
+      <PasswordField name="confirmPassword" label="Confirm password" required />
 
-      <LoadingButton type="submit" loading={methods.formState.isSubmitting}>
+      <LoadingButton type="submit" fullWidth loading={methods.formState.isSubmitting}>
         Get started
       </LoadingButton>
-    </FormProvider>
+    </Stack>
   );
 }

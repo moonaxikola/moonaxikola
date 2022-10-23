@@ -1,11 +1,6 @@
 import { useMemo } from 'react';
 import { CssBaseline } from '@mui/material';
-import {
-  createTheme,
-  ThemeOptions,
-  ThemeProvider as MUIThemeProvider,
-  responsiveFontSizes,
-} from '@mui/material/styles';
+import { createTheme, ThemeOptions, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
 import { useSettings } from '../hooks';
 import { ThemeProviderProps } from './Theme.types';
@@ -27,11 +22,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     [themeMode],
   );
 
-  let theme = createTheme(themeOptions);
+  const theme = createTheme(themeOptions);
 
   theme.components = componentsOverride(theme);
-
-  theme = responsiveFontSizes(theme);
 
   return (
     <MUIThemeProvider theme={theme}>
