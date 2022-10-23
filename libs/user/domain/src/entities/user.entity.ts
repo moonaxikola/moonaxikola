@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
-import { IsString, IsEmail, IsDate, IsOptional, MinLength } from 'class-validator';
+import { IsString, IsEmail, IsDate, IsOptional, MinLength, IsNotEmpty } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { BaseEntity } from '@moona/common/domain';
-import { IsPassword, Optional } from '@moona/common/utils';
+import { Optional } from '@moona/common/utils';
 import { Exclude, Expose } from 'class-transformer';
 import { instanceToPlain } from 'class-transformer';
 
@@ -21,7 +21,8 @@ export class User extends BaseEntity<string> {
   @IsEmail()
   private _email: string;
 
-  @IsPassword()
+  @IsString()
+  @IsNotEmpty()
   private _password: string;
 
   @IsString()

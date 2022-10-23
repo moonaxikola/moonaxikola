@@ -5,6 +5,7 @@ export class EntityAlreadyExistsException extends Exception<void> {
   constructor(entityName: string, field: string, value: string) {
     super({
       httpStatusCode: 409,
+      field,
       code: ENTITY_EXCEPTION_CODE.ALREADY_EXISTS,
       message: `${entityName} with "${field}: ${value}" already exists`,
     });

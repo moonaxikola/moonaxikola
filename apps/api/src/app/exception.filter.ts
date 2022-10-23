@@ -15,7 +15,12 @@ export class CustomExceptionFilter implements ExceptionFilter {
     response.status(this.getStatusCode(exception)).json(this.getResponseBody(exception));
   }
 
-  private getResponseBody(exception: IException): { code: string; message: string } {
+  private getResponseBody(exception: IException): {
+    code: string;
+    message: string;
+    field?: string;
+    data?: unknown;
+  } {
     if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       return {
         code: exception.code,
@@ -26,7 +31,9 @@ export class CustomExceptionFilter implements ExceptionFilter {
     if (exception instanceof Exception) {
       return {
         code: exception.code,
+        field: exception.field,
         message: exception.message,
+        data: exception.data,
       };
     }
 

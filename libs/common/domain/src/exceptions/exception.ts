@@ -9,6 +9,8 @@ export class Exception<Data> extends Error {
 
   public readonly data: Optional<Data>;
 
+  public readonly field: Optional<string>;
+
   public static new<Data>(payload: CreateExceptionPayload<Data>) {
     return new Exception(payload.code, payload.overrideMessage, payload.data);
   }
@@ -20,6 +22,7 @@ export class Exception<Data> extends Error {
     this.code = codeDescription.code;
     this.httpStatusCode = codeDescription.httpStatusCode;
     this.data = data;
+    this.field = codeDescription.field;
     this.message = overrideMessage || codeDescription.message;
 
     Error.captureStackTrace(this, this.constructor);

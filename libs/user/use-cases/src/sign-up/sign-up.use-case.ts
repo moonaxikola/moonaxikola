@@ -24,5 +24,7 @@ export class SignUpUseCase implements ISignUpUseCase {
     await this.userRepository.create(user);
 
     this.event.dispatch(new UserCreatedEvent(user.toProps()));
+
+    return user.toProps();
   }
 }
