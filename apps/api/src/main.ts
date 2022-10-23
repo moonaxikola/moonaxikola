@@ -9,8 +9,12 @@ import { CustomExceptionFilter } from './app/exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const webClients = [process.env.PUBLIC_WEB_URL];
+
+  console.log('webClients', webClients);
+
   app.use(cookieParser());
-  app.enableCors();
+  app.enableCors({ origin: webClients, credentials: true });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));

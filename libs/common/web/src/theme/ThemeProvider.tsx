@@ -7,6 +7,7 @@ import { ThemeProviderProps } from './Theme.types';
 import { breakpoints } from './breakpoints';
 import { typography } from './typography';
 import { palette } from './palette';
+import { shadows } from './shadows';
 import componentsOverride from './overrides';
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
@@ -17,6 +18,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       typography,
       breakpoints,
       shape: { borderRadius: 8 },
+      shadows: shadows[themeMode],
       palette: palette[themeMode],
     }),
     [themeMode],

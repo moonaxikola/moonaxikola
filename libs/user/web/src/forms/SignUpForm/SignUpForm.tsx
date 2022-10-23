@@ -15,11 +15,13 @@ export function SignUpForm({ onSubmit }: SignUpFormProps) {
 
   return (
     <Stack spacing={2} component={FormProvider} methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
-      <TextField name="firstName" label="First name" required />
-      <TextField name="lastName" label="Last name" required />
+      <Stack spacing={2} direction="row">
+        <TextField name="firstName" label="First name" required />
+        <TextField name="lastName" label="Last name" required />
+      </Stack>
       <TextField name="email" type="email" label="Email address" required />
       <TextField name="username" label="Username" required />
-      <PasswordField name="password" label="Password" required />
+      <PasswordField name="password" label="Password" showConstraintIndicator required />
       <PasswordField name="confirmPassword" label="Confirm password" required />
 
       <LoadingButton type="submit" fullWidth loading={methods.formState.isSubmitting}>

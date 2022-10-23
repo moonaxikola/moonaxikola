@@ -20,12 +20,25 @@ export default function Button(theme: Theme): Pick<ThemeComponents, 'MuiButton' 
           },
         },
         {
-          props: { variant: 'dashed', color: 'secondary' },
+          props: {
+            variant: 'dashed',
+            color: 'secondary',
+          },
           style: {
             border: `4px dashed ${red[500]}`,
           },
         },
       ],
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+        sizeLarge: {
+          height: 48,
+        },
+      },
     },
     MuiLoadingButton: {
       defaultProps: {

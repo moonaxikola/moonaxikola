@@ -1,30 +1,31 @@
-import { Typography } from '@mui/material';
-import { useSignUp } from '@moona/user/data-access';
-import { SignUpForm, SignUpFormValues } from '@moona/user/web';
-import { NextLink } from '@moona/common/web';
 import { ReactElement } from 'react';
+import { Typography, Divider } from '@mui/material';
+import { NextLink } from '@moona/common/web';
 
 import { AuthLayout } from '../components';
+import { SignUpForm } from '../components/sections/sign-up';
 
 export default function SignUpPage() {
-  const { mutateAsync: signUp } = useSignUp();
-
-  const handleSubmit = async (variables: SignUpFormValues) => {
-    const response = await signUp(variables);
-  };
-
   return (
     <>
       <Typography component="h1" variant="h2" marginBottom={4}>
         Criar conta
       </Typography>
-      <SignUpForm onSubmit={handleSubmit} />
+
+      <SignUpForm />
+
       <Typography textAlign="center" marginTop={4}>
         Já tem uma conta?{' '}
         <NextLink href="/sign-in" variant="body1">
           Entrar
         </NextLink>
       </Typography>
+
+      <Divider>
+        <Typography marginY={4} variant="body2" color="text.secondary">
+          Ou
+        </Typography>
+      </Divider>
     </>
   );
 }

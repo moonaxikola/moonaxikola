@@ -7,16 +7,18 @@ export default function CssBaseline(theme: Theme): Pick<ThemeComponents, 'MuiCss
     MuiCssBaseline: {
       styleOverrides: {
         '*': {
-          margin: 0,
-          padding: 0,
           boxSizing: 'border-box',
         },
         html: {
+          margin: 0,
+          padding: 0,
           width: '100%',
           height: '100%',
           WebkitOverflowScrolling: 'touch',
         },
         body: {
+          margin: 0,
+          padding: 0,
           width: '100%',
           height: '100%',
         },
@@ -36,10 +38,22 @@ export default function CssBaseline(theme: Theme): Pick<ThemeComponents, 'MuiCss
               WebkitAppearance: 'none',
             },
           },
+          '&[type=password]': {
+            '&::-ms-reveal': {
+              display: 'none',
+            },
+            '&::-ms-clear': {
+              display: 'none',
+            },
+          },
         },
         img: {
           display: 'block',
           maxWidth: '100%',
+        },
+        ul: {
+          margin: 0,
+          padding: 0,
         },
       },
     },

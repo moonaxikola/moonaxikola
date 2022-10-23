@@ -8,7 +8,7 @@ export const Root = styled(Stack)(() => ({
 }));
 
 export const DescriptionContainer = styled('div')(({ theme }) => ({
-  flex: 2,
+  flex: 1,
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -17,14 +17,14 @@ export const DescriptionContainer = styled('div')(({ theme }) => ({
   color: theme.palette.primary.contrastText,
 
   '&::after': {
-    content: "''",
     background: "center / cover no-repeat url('/img/background/abs-1.png')",
-    opacity: 0.4,
+    position: 'absolute',
+    content: "''",
+    opacity: 0.5,
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    position: 'absolute',
   },
 
   '& > div': {
@@ -37,7 +37,6 @@ export const DescriptionContainer = styled('div')(({ theme }) => ({
 }));
 
 export const FormContainer = styled('div')(({ theme }) => ({
-  flexShrink: 0,
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -45,6 +44,9 @@ export const FormContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   paddingLeft: theme.spacing(4),
   paddingRight: theme.spacing(4),
+  [theme.breakpoints.up('lg')]: {
+    maxWidth: 560,
+  },
 
   '& > div': {
     width: 340,
