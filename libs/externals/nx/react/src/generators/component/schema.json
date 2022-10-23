@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "MoonaNxReactComponent",
+  "title": "Create a React component",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the component.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the component?"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Create the component under this directory (can be nested).",
+      "alias": "dir"
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "alias": "p",
+      "$default": {
+        "$source": "projectName"
+      },
+      "x-prompt": "What is the name of the project for this component?",
+      "default": "core-common-web"
+    }
+  },
+  "required": ["name"]
+}

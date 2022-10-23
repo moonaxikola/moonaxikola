@@ -1,0 +1,10 @@
+import { render } from '@testing-library/react';
+
+import <%= fileName %> from './<%= fileName %>';
+
+describe('<%= fileName %>', () => {
+  it('should render successfully', () => {
+    const { baseElement } = render(< <%= fileName %> />);
+    expect(baseElement).toBeTruthy();
+  });
+});

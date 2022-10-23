@@ -1,0 +1,10 @@
+import { <%= fileName %>Props } from './<%= fileName %>.types';
+import { Root } from './<%= fileName %>.styles';
+
+export function <%= fileName %>({ children }: <%= fileName %>Props) {
+  return (
+    <Root>
+      {children}
+    </Root>
+  );
+}
