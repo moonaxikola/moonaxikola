@@ -1,4 +1,5 @@
 import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common';
+import { exceptionFactory } from '@moona/common/infrastructure';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { PrismaService } from 'nestjs-prisma';
 import cookieParser from 'cookie-parser';
@@ -11,11 +12,9 @@ async function bootstrap() {
 
   const webClients = [process.env.PUBLIC_WEB_URL];
 
-  console.log('webClients', webClients);
-
   app.use(cookieParser());
   app.enableCors({ origin: webClients, credentials: true });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ exceptionFactory, transform: true }));
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.get(PrismaService).enableShutdownHooks(app);

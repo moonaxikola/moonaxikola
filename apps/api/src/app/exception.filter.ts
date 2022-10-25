@@ -1,8 +1,10 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
-import { Exception } from '@moona/common/domain';
-import { prismaHttpStatusMapping } from '@moona/common/infrastructure';
 import { Prisma } from '@prisma/client';
+import { Exception } from '@moona/common/domain';
+import { RequestError } from '@moona/common/contracts';
+import { prismaHttpStatusMapping } from '@moona/common/infrastructure';
+import { getValueOrUndefined } from '@moona/common/utils';
 
 type IException = Exception<unknown> | HttpException | Prisma.PrismaClientKnownRequestError;
 
@@ -15,12 +17,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
     response.status(this.getStatusCode(exception)).json(this.getResponseBody(exception));
   }
 
-  private getResponseBody(exception: IException): {
-    code: string;
-    message: string;
-    field?: string;
-    data?: unknown;
-  } {
+  private getResponseBody(exception: IException): RequestError {
     if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       return {
         code: exception.code,
@@ -31,18 +28,22 @@ export class CustomExceptionFilter implements ExceptionFilter {
     if (exception instanceof Exception) {
       return {
         code: exception.code,
-        field: exception.field,
         message: exception.message,
-        data: exception.data,
+        errors: getValueOrUndefined()
+          .condition(!!exception.field)
+          .value([{ [exception.field]: [exception.message] }]),
       };
     }
 
     if (exception instanceof HttpException) {
       const exceptionResponse = exception.getResponse();
-
       return {
         code: `I${exception.getStatus()}`,
-        message: typeof exceptionResponse === 'string' ? exceptionResponse : exceptionResponse['message'],
+        message: typeof exceptionResponse === 'string' ? exceptionResponse : exceptionResponse['error'],
+        errors: getValueOrUndefined()
+          .condition(typeof exceptionResponse === 'object')
+          .condition(typeof exceptionResponse['message'] === 'object')
+          .value(exceptionResponse['message']),
       };
     }
 
