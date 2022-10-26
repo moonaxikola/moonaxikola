@@ -8,7 +8,6 @@ export interface AppConfig {
 }
 
 export interface FrontendConfig {
-  emailVerificationUrl: string;
   passwordResetUrl: string;
 }
 
@@ -24,12 +23,10 @@ const appEnvConfig: NestConfigExtension = {
 
 const frontendEnvConfig: NestConfigExtension = {
   variables: registerAs<FrontendConfig>('frontend', () => ({
-    emailVerificationUrl: process.env.FRONTEND_EMAIL_VERIFICATION_URL,
     passwordResetUrl: process.env.FRONTEND_PASSWORD_RESET_URL,
   })),
 
   validationSchema: {
-    FRONTEND_EMAIL_VERIFICATION_URL: joi.string().uri().required(),
     FRONTEND_PASSWORD_RESET_URL: joi.string().uri().required(),
   },
 };

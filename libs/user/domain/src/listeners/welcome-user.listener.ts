@@ -7,7 +7,7 @@ export class WelcomeUserListener implements EventListener<UserCreatedEvent> {
   constructor(private readonly userMailer: IUserMailer) {}
 
   async handle(event: UserCreatedEvent): Promise<void> {
-    await this.userMailer.sendVerificationEmail(event.data);
+    await this.userMailer.sendConfirmationEmail(event.data);
     await this.userMailer.sendWelcomeEmail(event.data);
   }
 }

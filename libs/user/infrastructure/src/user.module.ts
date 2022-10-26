@@ -17,7 +17,7 @@ import { UserAccountListener } from './listeners';
 import { LocalStrategy, JwtStrategy, JwtRefreshTokenStrategy } from './strategies';
 import { UserRepository, RefreshTokenRepository } from './repositories';
 import {
-  EmailVerificationController,
+  EmailConfirmationController,
   AuthController,
   AccountController,
   ResetPasswordController,
@@ -25,7 +25,7 @@ import {
 
 const controllers: Type[] = [
   AuthController,
-  EmailVerificationController,
+  EmailConfirmationController,
   AccountController,
   ResetPasswordController,
 ];

@@ -25,12 +25,12 @@ export class UserMailer implements IUserMailer {
     });
   }
 
-  async sendVerificationEmail(user: UserProps): Promise<void> {
+  async sendConfirmationEmail(user: UserProps): Promise<void> {
     const code = randomString(6);
 
     await this.userRepository.saveEmailConfirmationCode(user.email, code);
 
-    this.novu.trigger('user-verification-email', {
+    this.novu.trigger('user-confirmation-email', {
       to: {
         subscriberId: user.id,
       },
