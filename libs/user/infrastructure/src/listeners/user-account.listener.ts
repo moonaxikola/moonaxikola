@@ -29,7 +29,7 @@ export class UserAccountListener {
 
   @OnEvent(ResendConfirmationEmailEvent.eventName)
   async handleResendConfirmationEmailEvent(event: ResendConfirmationEmailEvent) {
-    await this.userMailer.sendVConfirmationEmail(event.data);
+    await this.userMailer.sendConfirmationEmail(event.data);
   }
 
   @OnEvent(PasswordResetEvent.eventName)

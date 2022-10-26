@@ -7,13 +7,14 @@ import * as routes from '../../../routes';
 
 export function ConfirmEmailForm() {
   const router = useRouter();
+  const { email } = router.query;
   const { mutate, error, isLoading } = useConfirmEmail({
     onSuccess: () => router.push(routes.home()),
   });
 
   return (
     <>
-      <ConfirmEmailOtpForm onSubmit={mutate} error={error} isLoading={isLoading} />
+      <ConfirmEmailOtpForm email={email.toString()} onSubmit={mutate} error={error} isLoading={isLoading} />
 
       {error && (
         <Alert severity="error" sx={{ my: 3 }}>

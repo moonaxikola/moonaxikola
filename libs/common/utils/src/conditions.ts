@@ -1,3 +1,4 @@
+// TODO: improve typings
 export function getValueOrUndefined() {
   let conditionsValidated = false;
 

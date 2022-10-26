@@ -7,10 +7,10 @@ export interface IUserRepository extends BaseRepositoryport<User> {
   countByUsername(username: string): Promise<number>;
   findByEmail(email: string): Promise<User | null>;
   findByUsername(username: string): Promise<User | null>;
-  getEmailByConfirmationCode(token: string): Promise<string | null>;
+  getEmailConfirmationCode(email: string): Promise<string | null>;
   getEmailByPasswordResetToken(token: string): Promise<string | null>;
-  deleteEmailConfirmationCode(code: string): Promise<void>;
+  deleteEmailConfirmationCode(email: string): Promise<void>;
   deletePasswordResetToken(token: string): Promise<void>;
   saveEmailConfirmationCode(email: string, code: string): Promise<void>;
-  markEmailAsConfirmed(email: string, code: string): Promise<void>;
+  markEmailAsConfirmed(email: string): Promise<void>;
 }

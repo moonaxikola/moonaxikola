@@ -51,16 +51,16 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
     });
   }
 
-  private getEmailConfirmationCodeKey(code: string): string {
-    return `email-confirm-code:${code}`;
+  private getEmailConfirmationCodeKey(email: string): string {
+    return `email-confirm-code:${email}`;
   }
 
   private getPasswordResetTokenKey(token: string): string {
     return `password-reset-token:${token}`;
   }
 
-  async getEmailByConfirmationCode(code: string): Promise<string> {
-    return <string>await this.redis.get(this.getEmailConfirmationCodeKey(code));
+  async getEmailConfirmationCode(email: string): Promise<string> {
+    return <string>await this.redis.get(this.getEmailConfirmationCodeKey(email));
   }
 
   async getEmailByPasswordResetToken(token: string): Promise<string> {
@@ -72,7 +72,7 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
     await this.redis.set(this.getPasswordResetTokenKey(token), email, { ttl: TWELVE_HEURES_IN_SECONDS });
   }
 
-  async markEmailAsConfirmed(email: string, token: string): Promise<void> {
+  async markEmailAsConfirmed(email: string): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user || !!user.emailVerifiedAt) return;
@@ -82,11 +82,11 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
       data: { emailVerifiedAt: new Date() },
     });
 
-    await this.deleteEmailConfirmationCode(token);
+    await this.deleteEmailConfirmationCode(email);
   }
 
-  async deleteEmailConfirmationCode(code: string): Promise<void> {
-    await this.redis.del(this.getEmailConfirmationCodeKey(code));
+  async deleteEmailConfirmationCode(email: string): Promise<void> {
+    await this.redis.del(this.getEmailConfirmationCodeKey(email));
   }
 
   async deletePasswordResetToken(token: string): Promise<void> {
@@ -95,6 +95,6 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
 
   async saveEmailConfirmationCode(email: string, code: string): Promise<void> {
     const TWELVE_HEURES_IN_SECONDS = 60 * 60 * 12;
-    await this.redis.set(this.getEmailConfirmationCodeKey(code), email, { ttl: TWELVE_HEURES_IN_SECONDS });
+    await this.redis.set(this.getEmailConfirmationCodeKey(email), code, { ttl: TWELVE_HEURES_IN_SECONDS });
   }
 }

@@ -4,7 +4,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ConfirmEmailRequestDto, ResendConfirmationEmailRequestDto } from '../dtos';
 
 @Controller('email')
-export class EmailConfirmatoinController {
+export class EmailConfirmationController {
   constructor(
     private readonly confirmEmailUseCase: ConfirmEmailUseCase,
     private readonly resendConfirmationEmailUseCase: ResendConfirmationEmailUseCase,
