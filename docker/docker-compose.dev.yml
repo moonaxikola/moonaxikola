@@ -93,7 +93,7 @@ services:
     container_name: moona-novu-api
     restart: unless-stopped
     environment:
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: local
       API_ROOT_URL: ${NOVU_API_ROOT_URL}
       DISABLE_USER_REGISTRATION: ${NOVU_DISABLE_USER_REGISTRATION}
       PORT: ${NOVU_API_PORT}
