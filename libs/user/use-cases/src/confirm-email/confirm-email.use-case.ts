@@ -7,11 +7,11 @@ import { ConfirmEmailUseCasePayload, IConfirmEmailUseCase } from './confirm-emai
 export class ConfirmEmailUseCase implements IConfirmEmailUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
 
-  async execute({ token }: ConfirmEmailUseCasePayload) {
-    const email = await this.userRepository.getEmailByConfirmationToken(token);
+  async execute({ code }: ConfirmEmailUseCasePayload) {
+    const email = await this.userRepository.getEmailByConfirmationCode(code);
 
     assert.ok(email, new BadRequestException('Invalid confirmation token'));
 
-    await this.userRepository.markEmailAsConfirmed(email, token);
+    await this.userRepository.markEmailAsConfirmed(email, code);
   }
 }

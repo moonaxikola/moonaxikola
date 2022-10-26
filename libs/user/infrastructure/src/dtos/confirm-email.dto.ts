@@ -6,5 +6,5 @@ export type ConfirmEmailRequest = ConfirmEmailUseCasePayload;
 export class ConfirmEmailRequestDto implements ConfirmEmailRequest {
   @IsString()
   @IsNotEmpty()
-  token: string;
+  code: string;
 }

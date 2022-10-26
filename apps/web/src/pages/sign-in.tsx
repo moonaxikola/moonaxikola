@@ -4,6 +4,7 @@ import { NextLink } from '@moona/common/web';
 
 import { AuthLayout } from '../components';
 import { SignInForm } from '../components/sections/sign-in';
+
 export default function SignInPage() {
   return (
     <>

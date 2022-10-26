@@ -51,16 +51,16 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
     });
   }
 
-  private getEmailConfirmationTokenKey(token: string): string {
-    return `email-confirm-token:${token}`;
+  private getEmailConfirmationCodeKey(code: string): string {
+    return `email-confirm-code:${code}`;
   }
 
   private getPasswordResetTokenKey(token: string): string {
     return `password-reset-token:${token}`;
   }
 
-  async getEmailByConfirmationToken(token: string): Promise<string> {
-    return <string>await this.redis.get(this.getEmailConfirmationTokenKey(token));
+  async getEmailByConfirmationCode(code: string): Promise<string> {
+    return <string>await this.redis.get(this.getEmailConfirmationCodeKey(code));
   }
 
   async getEmailByPasswordResetToken(token: string): Promise<string> {
@@ -82,19 +82,19 @@ export class UserRepository extends PrismaRepository implements IUserRepository 
       data: { emailVerifiedAt: new Date() },
     });
 
-    await this.deleteEmailConfirmationToken(token);
+    await this.deleteEmailConfirmationCode(token);
   }
 
-  async deleteEmailConfirmationToken(token: string): Promise<void> {
-    await this.redis.del(this.getEmailConfirmationTokenKey(token));
+  async deleteEmailConfirmationCode(code: string): Promise<void> {
+    await this.redis.del(this.getEmailConfirmationCodeKey(code));
   }
 
   async deletePasswordResetToken(token: string): Promise<void> {
     await this.redis.del(this.getPasswordResetTokenKey(token));
   }
 
-  async saveEmailConfirmationToken(email: string, token: string): Promise<void> {
+  async saveEmailConfirmationCode(email: string, code: string): Promise<void> {
     const TWELVE_HEURES_IN_SECONDS = 60 * 60 * 12;
-    await this.redis.set(this.getEmailConfirmationTokenKey(token), email, { ttl: TWELVE_HEURES_IN_SECONDS });
+    await this.redis.set(this.getEmailConfirmationCodeKey(code), email, { ttl: TWELVE_HEURES_IN_SECONDS });
   }
 }

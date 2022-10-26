@@ -8,7 +8,7 @@ import * as routes from '../../../routes';
 function SignUpFormContainer() {
   const router = useRouter();
   const { mutate, error, isLoading } = useSignUp({
-    onSuccess: data => router.push(routes.verifyEmail(data.email, data.firstName)),
+    onSuccess: data => router.push(routes.confirmEmail(data.email, data.firstName)),
   });
 
   const showAlertMessage = error && error.message && !error.errors;

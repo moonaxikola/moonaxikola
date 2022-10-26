@@ -26,11 +26,9 @@ export class UserMailer implements IUserMailer {
   }
 
   async sendVerificationEmail(user: UserProps): Promise<void> {
-    const token = randomString(32);
-    const url = new URL(this.config.get('frontend.emailVerificationUrl'));
-    url.searchParams.append('token', token);
+    const code = randomString(6);
 
-    await this.userRepository.saveEmailConfirmationToken(user.email, token);
+    await this.userRepository.saveEmailConfirmationCode(user.email, code);
 
     this.novu.trigger('user-verification-email', {
       to: {
@@ -38,7 +36,7 @@ export class UserMailer implements IUserMailer {
       },
       payload: {
         firstName: user.firstName,
-        url: url.href,
+        code,
       },
     });
   }

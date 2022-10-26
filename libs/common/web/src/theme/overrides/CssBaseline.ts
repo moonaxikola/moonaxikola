@@ -55,6 +55,13 @@ export default function CssBaseline(theme: Theme): Pick<ThemeComponents, 'MuiCss
           margin: 0,
           padding: 0,
         },
+
+        // Custom components
+        '.MuiOtpInput-TextField': {
+          '& .MuiFilledInput-input': {
+            padding: 12,
+          },
+        },
       },
     },
   };

@@ -9,10 +9,12 @@ export function formatFormErrors(error: RequestError): FormError<any>[] {
 
   return error.errors.map(validationError => {
     return Object.entries(validationError).reduce(
-      (_, [field, messages]) => ({
-        field,
-        message: messages.join('\n'),
-      }),
+      (_, [field, messages]) => {
+        return {
+          field,
+          message: messages.join('\n'),
+        };
+      },
       { field: '', message: '' },
     );
   });

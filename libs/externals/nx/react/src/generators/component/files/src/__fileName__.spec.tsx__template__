@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import <%= fileName %> from './<%= fileName %>';
+import { <%= fileName %> } from './<%= fileName %>';
 
 describe('<%= fileName %>', () => {
   it('should render successfully', () => {

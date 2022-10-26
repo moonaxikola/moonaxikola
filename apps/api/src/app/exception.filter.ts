@@ -38,10 +38,20 @@ export class CustomExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       const exceptionResponse = exception.getResponse();
 
-      console.log(exceptionResponse);
       return {
         code: `I${exception.getStatus()}`,
-        message: typeof exceptionResponse === 'string' ? exceptionResponse : exceptionResponse['message'],
+        message:
+          getValueOrUndefined()
+            .condition(typeof exceptionResponse === 'string')
+            .value(exceptionResponse) ??
+          getValueOrUndefined()
+            .condition(typeof exceptionResponse === 'object')
+            .condition(typeof exceptionResponse['message'] === 'string')
+            .value(exceptionResponse['message']) ??
+          getValueOrUndefined()
+            .condition(typeof exceptionResponse === 'object')
+            .condition(typeof exceptionResponse['error'] === 'string')
+            .value(exceptionResponse['error']),
         errors: getValueOrUndefined()
           .condition(typeof exceptionResponse === 'object')
           .condition(typeof exceptionResponse['message'] === 'object')

@@ -4,10 +4,9 @@ export function exceptionFactory(validationErrors: ValidationError[] = []) {
   const errors = validationErrors.map(error => {
     const { property, constraints } = error;
 
-    return {
-      property,
-      message: constraints ? Object.values(constraints) : [],
-    };
+    const message = constraints ? Object.values(constraints) : [];
+
+    return { [property]: message };
   });
 
   return new BadRequestException(errors);
