@@ -1,29 +1,19 @@
-import { useRequest, formatRequestError } from '@moona/common/data-access';
-import { SignUpResponse, SignUpRequest, SignInResponse, SignInRequest } from '@moona/common/contracts';
 import { useMutation } from '@tanstack/react-query';
+import { MutationOptions, useRequest } from '@moona/common/data-access';
+import {
+  SignUpResponse,
+  SignUpRequest,
+  SignInResponse,
+  SignInRequest,
+  RequestError,
+} from '@moona/common/contracts';
 
-export function useSignUp() {
+export function useSignUp(options?: MutationOptions<SignUpResponse, RequestError, SignUpRequest>) {
   const request = useRequest();
-
-  return useMutation<SignUpResponse, Error, SignUpRequest>(async data => {
-    return request
-      .post<SignUpResponse>('/sign-up/email', data)
-      .then(response => response.data)
-      .catch(e => {
-        throw formatRequestError(e);
-      });
-  });
+  return useMutation(async data => request.post('/sign-up/email', data), options);
 }
 
-export function useSignIn() {
+export function useSignIn(options?: MutationOptions<SignInResponse, RequestError, SignInRequest>) {
   const request = useRequest();
-
-  return useMutation<SignInResponse, Error, SignInRequest>(async data => {
-    return request
-      .post<SignUpResponse>('/sign-in/email', data)
-      .then(response => response.data)
-      .catch(e => {
-        throw formatRequestError(e);
-      });
-  });
+  return useMutation(async data => request.post('/sign-in/email', data), options);
 }

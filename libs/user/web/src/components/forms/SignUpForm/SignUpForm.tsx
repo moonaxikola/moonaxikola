@@ -7,13 +7,13 @@ import { useForm } from 'react-hook-form';
 import { SignUpFormProps, SignUpFormValues } from './SignUpForm.types';
 import { validationSchema, defaultValues } from './SignUpForm.utils';
 
-export function SignUpForm({ onSubmit, errors = [] }: SignUpFormProps) {
+export function SignUpForm({ onSubmit, error, isLoading }: SignUpFormProps) {
   const methods = useForm<SignUpFormValues>({
     resolver: yupResolver(validationSchema),
     defaultValues,
   });
 
-  useFormErrors(errors, methods);
+  useFormErrors(methods, error);
 
   return (
     <Stack spacing={2} component={FormProvider} methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -26,7 +26,7 @@ export function SignUpForm({ onSubmit, errors = [] }: SignUpFormProps) {
       <PasswordField name="password" label="Password" showConstraintIndicator required />
       <PasswordField name="confirmPassword" label="Confirm password" required />
 
-      <LoadingButton type="submit" fullWidth loading={methods.formState.isSubmitting}>
+      <LoadingButton type="submit" fullWidth loading={isLoading}>
         Get started
       </LoadingButton>
     </Stack>

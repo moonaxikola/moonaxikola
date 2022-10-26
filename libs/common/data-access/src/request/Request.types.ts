@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, UseMutationOptions } from '@tanstack/react-query';
 import { AxiosInstance, CreateAxiosDefaults } from 'axios';
 import { ReactNode } from 'react';
 
@@ -9,3 +9,8 @@ export type RequestProviderProps = {
   config?: CreateAxiosDefaults;
   queryClient?: QueryClient;
 };
+
+export type MutationOptions<TData, TError, TVariables, TContext = unknown> = Omit<
+  UseMutationOptions<TData, TError, TVariables, TContext>,
+  'mutationFn'
+>;

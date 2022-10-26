@@ -11,7 +11,21 @@ export function RequestProvider({
   queryClient = new QueryClient(),
   config = {},
 }: RequestProviderProps) {
-  const providerValues = useMemo<RequestContextPayload>(() => axios.create(config), [config]);
+  const providerValues = useMemo<RequestContextPayload>(() => {
+    const axiosInstance = axios.create(config);
+
+    axiosInstance.interceptors.response.use(
+      response => {
+        return Promise.resolve(response.data);
+      },
+      error => {
+        const e = error.response ? error.response.data : error;
+        return Promise.reject(e);
+      },
+    );
+
+    return axiosInstance;
+  }, [config]);
   return (
     <RequestContext.Provider value={providerValues}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

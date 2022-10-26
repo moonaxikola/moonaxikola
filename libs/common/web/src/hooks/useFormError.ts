@@ -1,7 +1,8 @@
+import { RequestError } from '@moona/common/contracts';
 import { useEffect } from 'react';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn, Path } from 'react-hook-form';
 
-import { FormError } from '../interfaces';
+import { formatFormErrors } from '../utils';
 
 /**
  * Hook to handle form errors
@@ -9,8 +10,10 @@ import { FormError } from '../interfaces';
  * @param errors - API form errors
  * @param methods - React hook form methods
  */
-export function useFormErrors<T extends FieldValues>(errors: FormError<T>[], methods: UseFormReturn<T>) {
+export function useFormErrors<T extends FieldValues>(methods: UseFormReturn<T>, error?: RequestError) {
   useEffect(() => {
-    errors?.forEach(error => methods.setError(error.field, { message: error.message }));
-  }, [methods, errors]);
+    if (error) {
+      formatFormErrors(error).forEach(e => methods.setError(e.field as Path<T>, { message: e.message }));
+    }
+  }, [methods, error]);
 }

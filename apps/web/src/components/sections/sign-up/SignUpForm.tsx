@@ -1,37 +1,25 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Alert } from '@mui/material';
 import { useSignUp } from '@moona/user/data-access';
-import { SignUpForm, SignUpFormValues } from '@moona/user/web';
-import { FormError } from '@moona/common/web';
+import { SignUpForm } from '@moona/user/web';
 
 import * as routes from '../../../routes';
 
 function SignUpFormContainer() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [errors, setErrors] = useState<FormError<SignUpFormValues>[]>([]);
-  const { mutateAsync: signUp, error } = useSignUp();
+  const { mutate, error, isLoading } = useSignUp({
+    onSuccess: data => router.push(routes.verifyEmail(data.email, data.firstName)),
+  });
 
-  const handleSubmit = async (variables: SignUpFormValues) => {
-    setErrorMessage(null);
-    setErrors([]);
-
-    try {
-      const response = await signUp(variables);
-      router.push(routes.verifyEmail(variables.email, variables.firstName));
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const showAlertMessage = error && error.message && !error.errors;
 
   return (
     <>
-      <SignUpForm onSubmit={handleSubmit} errors={errors} />
+      <SignUpForm onSubmit={mutate} error={error} isLoading={isLoading} />
 
-      {errorMessage && (
+      {showAlertMessage && (
         <Alert severity="error" sx={{ my: 3 }}>
-          {errorMessage}
+          {error.message}
         </Alert>
       )}
     </>
