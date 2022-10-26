@@ -33,6 +33,9 @@ export default function Input(theme: Theme): Pick<ThemeComponents, 'MuiFilledInp
             borderColor: theme.palette[ownerState.color || 'primary']?.main,
           },
         }),
+        error: {
+          borderColor: theme.palette.error.main,
+        },
       },
     },
   };
