@@ -8,7 +8,7 @@ export const Logo = forwardRef<SVGSVGElement, LogoProps>(({ mode, height = 40 },
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const activeMode = mode || (isSmallScreen ? 'icon' : 'full');
-  const viewBox = isSmallScreen ? '0 0 40 56.13' : '0 0 243.21 56.13';
+  const viewBox = mode === 'icon' ? '0 0 40 56.13' : isSmallScreen ? '0 0 40 56.13' : '0 0 243.21 56.13';
 
   return (
     <Root ref={ref} viewBox={viewBox} xmlns="http://www.w3.org/2000/svg" height={height}>

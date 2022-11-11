@@ -13,6 +13,7 @@ export const NextLink = forwardRef<HTMLAnchorElement, NextLinkProps>((props, ref
     as,
     className: classNameProps,
     href,
+    legacyBehavior,
     linkAs: linkAsProp,
     locale,
     noLinkStyle,
@@ -42,7 +43,7 @@ export const NextLink = forwardRef<HTMLAnchorElement, NextLinkProps>((props, ref
   }
 
   const linkAs = linkAsProp || as;
-  const nextjsProps = { to: href, linkAs, replace, scroll, shallow, prefetch, locale };
+  const nextjsProps = { to: href, linkAs, replace, scroll, shallow, prefetch, legacyBehavior, locale };
 
   if (noLinkStyle) {
     return <NextLinkComposed className={className} ref={ref} {...nextjsProps} {...other} />;

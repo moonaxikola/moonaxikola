@@ -6,7 +6,7 @@ import { Anchor } from './NextLink.styles';
 
 export const NextLinkComposed = forwardRef<HTMLAnchorElement, NextLinkComposedProps>(
   function NextLinkComposed(props, ref) {
-    const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } = props;
+    const { to, linkAs, replace, scroll, shallow, prefetch, legacyBehavior = true, locale, ...other } = props;
 
     return (
       <Link
@@ -18,6 +18,7 @@ export const NextLinkComposed = forwardRef<HTMLAnchorElement, NextLinkComposedPr
         shallow={shallow}
         passHref
         locale={locale}
+        legacyBehavior={legacyBehavior}
       >
         <Anchor ref={ref} {...other} />
       </Link>

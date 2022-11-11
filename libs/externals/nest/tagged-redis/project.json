@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "externals-nest-tagged-redis",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/externals/nest/tagged-redis/src",
   "projectType": "library",
   "targets": {

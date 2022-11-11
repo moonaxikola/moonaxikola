@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Alert } from '@mui/material';
 import { useSignIn } from '@moona/user/data-access';
 import { SignInForm } from '@moona/user/web';

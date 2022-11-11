@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import Head from 'next/head';
 import { appGetInitialProps, MoonaNextAppProps, MoonaNextProvider } from '@moona/common/web';
 
